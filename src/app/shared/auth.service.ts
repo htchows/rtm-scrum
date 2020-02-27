@@ -37,25 +37,29 @@ export class AuthService {
     return this.http.post<any>(`api/login.php`, user)
       .subscribe((res: any) => {
         console.log(res);
-        localStorage.setItem('access_token', res.token);
-        this.getUserProfile(res[0].id).subscribe((res) => {
-          this.currentUser = res;
-          this.router.navigate(['user-profile/' + res.msg.id]);
-        })
+        localStorage.setItem('token', res[0].email);
+        this.currentUser = res;
+        this.router.navigate(['/user-profile/', res[0].id ]);
+        
+        // this.getUserProfile(res[0].id).subscribe((res) => {
+        //   this.currentUser = res;
+        //   this.router.navigate(['user-profile/' + res.msg.id]);
+        // })
       })
   }
 
   getToken() {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('token');
   }
 
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
+    console.log("gettoken"+localStorage.getItem('token'));
+    let authToken = localStorage.getItem('token');
     return (authToken !== null) ? true : false;
   }
 
   doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
+    let removeToken = localStorage.removeItem('token');
     if (removeToken == null) {
       this.router.navigate(['log-in']);
     }
