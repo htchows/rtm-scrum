@@ -53,15 +53,16 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    console.log("gettoken"+localStorage.getItem('token'));
+    //console.log("gettoken"+localStorage.getItem('token'));
     let authToken = localStorage.getItem('token');
     return (authToken !== null) ? true : false;
   }
 
   doLogout() {
+    console.log("logout");
     let removeToken = localStorage.removeItem('token');
     if (removeToken == null) {
-      this.router.navigate(['log-in']);
+      this.router.navigate(['/']);
     }
   }
 
