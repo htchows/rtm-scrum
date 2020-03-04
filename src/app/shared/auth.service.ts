@@ -16,16 +16,12 @@ export class AuthService {
 
   currentUser = {};
 
-  constructor(
-    private http: HttpClient,
-    public router: Router
-  ) {
-  }
+  constructor(private http: HttpClient,public router: Router) { }
 
   // Sign-up
   register(user: User): Observable<any> {
     let api = `api/register.php`;
-    console.log(user);
+   // console.log(user);
     return this.http.post(api, user)
       .pipe(
         catchError(this.handleError)
@@ -36,10 +32,11 @@ export class AuthService {
   login(user: User) {
     return this.http.post<any>(`api/login.php`, user)
       .subscribe((res: any) => {
-        console.log(res);
-        localStorage.setItem('token', res[0].email);
+        //console.log(res);
+        localStorage.setItem('token', res[0].id);
         this.currentUser = res;
-        this.router.navigate(['/user-profile/', res[0].id ]);
+        this.router.navigate(['/dashboard']);
+        // this.router.navigate(['/dashboard/', res[0].id ]);
         
         // this.getUserProfile(res[0].id).subscribe((res) => {
         //   this.currentUser = res;
@@ -59,7 +56,7 @@ export class AuthService {
   }
 
   doLogout() {
-    console.log("logout");
+    //console.log("logout");
     let removeToken = localStorage.removeItem('token');
     if (removeToken == null) {
       this.router.navigate(['/']);

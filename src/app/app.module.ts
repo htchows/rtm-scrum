@@ -6,7 +6,6 @@ import { AuthInterceptor } from './shared/authconfig.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import {A11yModule} from '@angular/cdk/a11y';
@@ -51,9 +50,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
+
 import { HomePageComponent } from './home-page/home-page.component';
-import { MemberHomePageComponent } from './member-home-page/member-home-page.component';
-import { MemberNavMenuComponent } from './member-nav-menu/member-nav-menu.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
@@ -68,10 +67,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomePageComponent,
-    MemberHomePageComponent,
-    MemberNavMenuComponent,
+    NavMenuComponent,
     LoginComponent,
     RegisterComponent,
     UserDashboardComponent,

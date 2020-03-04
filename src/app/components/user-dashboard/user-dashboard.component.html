@@ -1,1 +1,16 @@
 <p>user-dashboard works!</p>
+<p>Welcome! {{this.currentId}}</p>
+<p>My project list</p>
+<ul class="project_own">
+    <li *ngFor="let prj of project_own_list">
+        <p>Project ID: </p>{{prj.project_id}}
+    </li>
+</ul>
+
+<p>Shared project list</p>
+<ul class="project_own">
+    <li *ngFor="let prj of project_view_list">
+        <p>Project ID: </p>{{prj.project_id}}
+        <p>Project author</p>{{prj.user_id}}
+    </li>
+</ul>

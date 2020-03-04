@@ -19,7 +19,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   logout(){
-    console.log("llgout");
+    //console.log("llgout");
     this.authService.doLogout();
   }
 }
