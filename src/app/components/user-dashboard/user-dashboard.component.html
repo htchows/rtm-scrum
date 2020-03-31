@@ -1,16 +1,93 @@
-<p>user-dashboard works!</p>
-<p>Welcome! {{this.currentId}}</p>
-<p>My project list</p>
-<ul class="project_own">
-    <li *ngFor="let prj of project_own_list">
-        <p>Project ID: </p>{{prj.project_id}}
-    </li>
-</ul>
+<!-- <p>Welcome! {{this.currentId}}</p> -->
 
+<!-- <div class="main-div">
+  
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">  
+        <ng-container matColumnDef="project_id">
+          <th mat-header-cell *matHeaderCellDef> Prject ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.project_id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="project_title">
+          <th mat-header-cell *matHeaderCellDef> Project Title </th>
+          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="project_desc">
+          <th mat-header-cell *matHeaderCellDef> Project Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="project_status">
+            <th mat-header-cell *matHeaderCellDef> Project Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">  
+        <ng-container matColumnDef="project_id">
+          <th mat-header-cell *matHeaderCellDef> Prject ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.project_id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="project_title">
+          <th mat-header-cell *matHeaderCellDef> Project Title </th>
+          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="project_desc">
+          <th mat-header-cell *matHeaderCellDef> Project Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+    </table>
+</div> -->
+
+
+<p>My project list</p>
+<table class="project_own">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prj of project_own_list" 
+        [routerLink]="['/dashboard/project-detail', prj.project_id]">
+            <td>{{prj.project_id}}</td>
+            <td>{{prj.title}}</td>
+            <td>{{prj.description}}</td>
+            <td>{{prj.status}}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
 <p>Shared project list</p>
-<ul class="project_own">
-    <li *ngFor="let prj of project_view_list">
-        <p>Project ID: </p>{{prj.project_id}}
-        <p>Project author</p>{{prj.user_id}}
-    </li>
-</ul>
+<table class="project_shared">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prj of project_view_list">
+            <td>{{prj.project_id}}</td>
+            <td>{{prj.user_id}}</td>
+            <td>{{prj.title}}</td>
+            <td>{{prj.description}}</td>
+            <td>{{prj.status}}</td>
+        </tr>
+    </tbody>
+</table>

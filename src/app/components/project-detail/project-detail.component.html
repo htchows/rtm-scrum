@@ -1,0 +1,21 @@
+<p>Project Code:  {{project_detail.project_id}}</p>
+<p>Project Title:  {{project_detail.title}}</p>
+<p>Project Description:  {{project_detail.description}}</p>
+<br>
+<p *ngIf='!has_product_backlog'>No product backlog</p>
+<p *ngIf='has_product_backlog'  
+    [routerLink]="['/project-detail/product-backlog', project_detail.project_id]">
+    VIEW PRODUCT BACKLOG
+</p>
+<br>
+<p *ngIf='!has_sprint_backlog'>No sprint backlog</p>
+<div *ngIf='has_sprint_backlog'>
+    <p>Sprint Backlog</p>
+    <ul>
+        <li  *ngFor="let sb of sprint_backlog_list" 
+        [routerLink]="['/project-detail/', project_detail.project_id, sb]">
+            {{sb}}
+        </li>
+    </ul>
+</div>
+<p [routerLink]="['/project-detail/rtm', project_detail.project_id]">Generate RTM</p>

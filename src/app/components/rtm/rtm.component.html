@@ -1,0 +1,57 @@
+<form [formGroup]="searchForm" (ngSubmit)="generate()"> 
+   <p>Search by:</p><br> 
+    <input type="radio" id="pb" formControlName="backlog" value="pb">
+    <label for="pb">Product Backlog</label><br>
+    <input type="radio" id="sb" formControlName="backlog" value="sb">
+    <label for="sb">Sprint Backlog</label><br>
+
+    <label for="keyword">Keyword</label><br>
+    <input type="text" id="keyword" formControlName="keyword"><br>
+    <br>
+    <label for="priority">Priority: </label>
+    <select id="priority" formControlName="priority">
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+        <option value="">None</option>
+    </select>
+    <br>
+    <label for="status">Status: </label>
+    <select id="status" formControlName="status">
+        <option value="Open">Open</option>
+        <option value="Pending">Pending</option>
+        <option value="Close">Close</option>
+        <option value="">None</option>
+    </select>
+    <br>
+    <button type="submit" >Generate</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+           <th>PB ID</th>
+           <th>PB Desc</th>
+           <th>PB Priority</th>
+           <th>PB Status</th>
+           <th>SB ID</th>
+           <th>SB Item ID</th>
+           <th>SB Desc</th>
+           <th>SB Priority</th>
+           <th>PB ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of rtm" >
+            <td>{{item.pb_id}}</td>
+            <td>{{item.pb_desc}}</td>
+            <td>{{item.pb_priority}}</td>
+            <td>{{item.pb_status}}</td>
+            <td>{{item.sb_id}}</td>
+            <td>{{item.sb_item_id}}</td>
+            <td>{{item.sb_desc}}</td>
+            <td>{{item.sb_priority}}</td>
+            <td>{{item.sb_status}}</td>
+        </tr>
+    </tbody>
+</table>

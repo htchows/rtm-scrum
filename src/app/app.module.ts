@@ -57,6 +57,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
+//import { ProductBacklogComponent } from './components/product-backlog/product-backlog.component';
+import { BacklogsComponent } from './components/backlogs/backlogs.component';
+import { RtmComponent } from './components/rtm/rtm.component';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 
 
 const appRoutes: Routes = [
@@ -72,7 +77,12 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     UserDashboardComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ProjectDetailComponent,
+    //ProductBacklogComponent,
+    BacklogsComponent,
+    RtmComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -135,6 +145,7 @@ const appRoutes: Routes = [
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents :[DialogBoxComponent ]
 })
 export class AppModule { }

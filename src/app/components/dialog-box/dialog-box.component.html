@@ -1,0 +1,44 @@
+<h1 mat-dialog-title *ngIf="isPB">Product Item: # {{ data.data.pb_id }}</h1>
+<h1 mat-dialog-title *ngIf="isSB">Sprint Item: # {{ data.data.sb_item_id }}</h1>
+
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Product Backlog ID</mat-label>
+    <input matInput [(ngModel)]="data.data.pb_id">
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isSB">
+    <mat-label>Sprint Backlog ID</mat-label >
+    <input matInput [(ngModel)]="data.data.sb_id">
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isSB">
+    <mat-label>Sprint Item ID</mat-label>
+    <input matInput [(ngModel)]="data.data.sb_item_id">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="data.data.desc">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Priority</mat-label>
+    <mat-select [(value)]="data.data.priority">
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Medium">Medium</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <input matInput [(ngModel)]="data.data.status">
+  </mat-form-field>
+</div>
+<small> *This action is not reversible.</small>
+<br />
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button color="primary" [mat-dialog-close]="data.data.prj_id" cdkFocusInitial>{{ data.action }}</button>
+</div>

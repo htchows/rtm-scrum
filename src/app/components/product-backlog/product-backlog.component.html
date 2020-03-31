@@ -1,0 +1,17 @@
+<p>Product Backlog</p>
+<table class="pb">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pb of backlog" >
+            <td>{{pb.pb_id}}</td>
+            <td>{{pb.pb_desc}}</td>
+            <td>{{pb.pb_status}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -12,6 +12,7 @@
         <span class="example-spacer"></span>
         <button mat-button >Features</button>
         <button mat-button >Guides</button>
+        <button mat-button routerLink="/dashboard" *ngIf="authService.isLoggedIn">Dashboard</button>
         <button mat-button [matMenuTriggerFor]="menu" *ngIf="authService.isLoggedIn">User</button>
         <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="/user-profile" routerLinkActive="active">Profile</button>
