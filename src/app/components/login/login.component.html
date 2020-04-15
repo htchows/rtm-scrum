@@ -2,10 +2,17 @@
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
       <input matInput placeholder=" " value=" " type="email" formControlName="email" required>
+      <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+      <mat-error *ngIf="hasError('email', 'email')">Not an email</mat-error>
     </mat-form-field> 
+
     <mat-form-field class="example-full-width">
         <mat-label>Password</mat-label>
         <input matInput placeholder=" " value=" " type="password" formControlName="password" required>
+        <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+        <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" class="btn" type="submit">Login</button>
+    <button mat-raised-button [routerLink]="['/home-page']">Cancel</button>
+    <button mat-raised-button color="primary" class="btn" type="submit" [disabled]="!signinForm.valid">Login</button>
+    <mat-error *ngIf="invalid">Invalid email or password</mat-error>
 </form>

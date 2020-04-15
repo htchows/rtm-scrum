@@ -5,10 +5,12 @@ import { ProjectService } from './../../shared/project.service';
 import { Backlog } from './../../shared/backlog';
 import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
@@ -24,8 +26,10 @@ export class BacklogsComponent implements OnInit {
   isSB:Boolean ;
   projectId; sbId;
   backlog;
-
+  isShared = false;
   isEdit = false;
+
+  data = {};
 
   displayedColumns: string[];
   // columnsPB: string[] = ['No', 'PB ID', 'Description', 'Priority', 'Status'];
@@ -42,34 +46,18 @@ export class BacklogsComponent implements OnInit {
     public authService: AuthService, 
     private projectService: ProjectService, 
     private actRoute: ActivatedRoute,
-    public dialog: MatDialog) 
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) 
   {
     //this.userId = this.authService.getToken();
     //let id = this.actRoute.snapshot.paramMap.get('id');
     //console.log(this.actRoute.snapshot.url[1].path == "product-backlog"? true:false);
-    this.projectId = actRoute.snapshot.params.id;
+    this.projectId = this.projectService.getToken();
+    console.log(this.projectId)
     this.sbId = actRoute.snapshot.params.sb_id;
-
-    
-    this.itemForm = this.fb.group({
-      prj_id: [''],
-      pb_id: [''],
-      sb_id: [''],
-      sb_item_id: [''],
-      desc: [''],
-      priority: [''],
-      status: [''],
-    })
-
-  //   this.itemForm = new FormGroup({
-  //     prj_id: new FormControl(),
-  //     pb_id: new FormControl(),
-  //     sb_id: new FormControl(),
-  //     sb_item_id: new FormControl(),
-  //     desc: new FormControl(),
-  //     priority: new FormControl(),
-  //     status: new FormControl(),
-  //  });
+    this.isShared = this.projectService.getShareToken() == "true"? true:false;
+   
+    this.data = { prj_id : this.projectId, sb_id : this.sbId }
     
     if(this.actRoute.snapshot.url[1].path == "product-backlog"){
       this.projectService.get_product_backlog(this.projectId)
@@ -81,13 +69,14 @@ export class BacklogsComponent implements OnInit {
         this.displayedColumns= ['no', 'pb_id', 'desc', 'priority', 'status','edit'];
       });
     }else{
+      console.log(this.projectId,this.sbId)
       this.projectService.get_sprint_backlog_detail(this.projectId,this.sbId)
       .subscribe((pb)=> { 
         // console.log(pb)
         this.backlog = pb; this.isPB = false; this.isSB = true; 
         this.dataSource = new MatTableDataSource(pb);
         this.dataSource.paginator = this.paginator;
-         this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
         this.displayedColumns= ['no', 'pb_id', 'sb_id', 'sb_item_id','desc', 'priority', 'status','edit'];
       });
     }
@@ -108,7 +97,7 @@ export class BacklogsComponent implements OnInit {
 
   selectedRowIndex;
   selectedRow(element):void{
-    console.log(element)
+    //console.log(element)
     this.selectedRowIndex = element.sb_item_id;
   }
 
@@ -124,13 +113,20 @@ export class BacklogsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(this.actRoute.snapshot.url[1].path == "product-backlog"){
+      this.openSnackBar("Updated","Dismiss");
+      if(this.isPB){
         this.projectService.get_product_backlog(this.projectId)
-        .subscribe((pb)=> { this.dataSource = new MatTableDataSource(pb)});
+          .subscribe((pb)=> { this.dataSource = new MatTableDataSource(pb)});
       }else{
         this.projectService.get_sprint_backlog_detail(this.projectId,this.sbId)
-        .subscribe((pb)=> { this.dataSource = new MatTableDataSource(pb) });
+          .subscribe((pb)=> { this.dataSource = new MatTableDataSource(pb) });
       }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
     });
   }
 }

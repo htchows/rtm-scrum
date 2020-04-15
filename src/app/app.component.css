@@ -1,3 +1,44 @@
+/* .back {
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: ;
+} */
+
 .main {
+    /* margin-top: 50px;
+    margin-bottom: 50px; */
     margin: 50px;
 }
+
+/* 
+.sidenav {
+    margin-top: 90px;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 30px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
+}
+  
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #2196F3;
+    display: block;
+}
+  
+.sidenav a:hover {
+    color: #064579;
+}
+  
+.main {
+    margin-top: 40px;
+    margin-right: 30px;
+    margin-left: 210px; 
+    margin-bottom: 40px;
+    padding: 0px 10px;
+} */

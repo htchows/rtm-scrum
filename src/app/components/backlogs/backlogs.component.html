@@ -1,132 +1,75 @@
-<!-- <div>
-    <h1 [routerLink]="['/dashboard/project-detail', projectId]">Project ID: {{projectId}}</h1>
-    <h2  *ngIf="isPB">Product Backlog</h2>
-    <h2  *ngIf="isSB">Sprint Backlog</h2>
-    <table class="pb">
-        <thead>
-            <tr>
-                <th>Project ID</th>
-                <th>PB ID</th>
-                <th *ngIf="isSB">SB ID</th>
-                <th *ngIf="isSB">SB ITEM ID</th>
-                <th>Description</th>
-                <th>Priority</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let b of backlog" >
-                <td>{{b.project_id}}</td>
-                <td>{{b.pb_id}}</td>
-                <td *ngIf="isSB">{{b.sb_id}}</td>
-                <td *ngIf="isSB">{{b.sb_item_id}}</td>
-                <td>{{b.desc}}</td>
-                <td>{{b.priority}}</td>
-                <td>{{b.status}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="sidenav">
+  <button mat-fab class="back" color="primary"  [routerLink]="['/dashboard/project-detail']">
+      <mat-icon class="icon">keyboard_backspace</mat-icon>
+  </button>
 </div>
- -->
- 
- 
- <!-- <mat-slide-toggle  [(ngModel)]="isEdit" (change)="editMode()">Edit Mode</mat-slide-toggle> -->
- <button mat-raised-button color="primary" class="btn" type="submit" (click)="submit()">Add Item</button>
-  
- <div class="mat-elevation-z8" [formGroup]="itemForm" (ngSubmit)="submit()">
-    <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="no">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-          <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
-          <!-- <td mat-footer-cell *matFooterCellDef> New item </td> -->
-        </ng-container>
-    
-        <ng-container matColumnDef="pb_id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> PB ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.pb_id}} </td>
-          <!-- <td mat-footer-cell *matFooterCellDef>
-            <mat-form-field class="example-full-width">
-            <input matInput placeholder=" " value=" " type="text" formControlName="pb_id">
-            </mat-form-field>
-          </td> -->
-        </ng-container>
-      
-        <ng-container matColumnDef="sb_id" *ngIf="isSB"> 
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> SB ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.sb_id}} </td>
-          <!-- <td mat-footer-cell *matFooterCellDef>
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder=" " value=" " type="text" formControlName="sb_id">
-            </mat-form-field>
-          </td> -->
-        </ng-container>
-      
-        <ng-container matColumnDef="sb_item_id" *ngIf="isSB">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> SB Item ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.sb_item_id}} </td>
-          <!-- <td mat-footer-cell *matFooterCellDef>
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder=" " value=" " type="text" formControlName="sb_item_id">
-            </mat-form-field>
-          </td> -->
-        </ng-container>
-    
-         <ng-container matColumnDef="desc">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-            <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
-            <!-- <td mat-footer-cell *matFooterCellDef>
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder=" " value=" " type="text" formControlName="desc">
-                </mat-form-field>
-            </td> -->
-          </ng-container>
-        
-          <ng-container matColumnDef="priority">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
-            <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
-            <!-- <td mat-footer-cell *matFooterCellDef>
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder=" " value=" " type="text" formControlName="priority">
-                </mat-form-field>
-            </td> -->
-          </ng-container>
-        
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-            <!-- <td mat-footer-cell *matFooterCellDef>
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder=" " value=" " type="text" formControlName="status">
-                </mat-form-field>
-            </td> -->
-          </ng-container>
-<!-- *ngIf="isEdit" -->
-          <ng-container matColumnDef="edit" >
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
-            <td mat-cell *matCellDef="let element" (click)="selectedRow(element)">
-                <mat-icon (click)="openDialog('Update',element)">edit</mat-icon>
-                <mat-icon >delete</mat-icon>
-            </td>
-            <!-- <td mat-footer-cell *matFooterCellDef>
-                <button mat-raised-button color="primary" class="btn" type="submit" (click)="submit()">Add</button>
-            </td> -->
-          </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns; " ></tr>
-        <!-- <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr> -->
-    </table>
-    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+<div class="main"> 
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title *ngIf="isPB">Product Backlog</mat-card-title>
+      <mat-card-title *ngIf="isSB">Sprint Backlog #{{sbId}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>        
+      <button mat-raised-button *ngIf="isPB" color="primary" class="btn" type="submit" 
+              (click)="openDialog('Create PB Item', data)">Add item
+      </button>
+      <button mat-raised-button *ngIf="isSB" color="primary" class="btn" type="submit"
+              (click)="openDialog('Add SB Item', data)">Add Item
+      </button>
+      <div [formGroup]="itemForm" (ngSubmit)="submit()">
+         <table mat-table [dataSource]="dataSource" matSort>
+             <ng-container matColumnDef="no">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+               <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
+             </ng-container>
+         
+             <ng-container matColumnDef="pb_id">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> PB ID </th>
+               <td mat-cell *matCellDef="let element"> {{element.pb_id}} </td>
+             </ng-container>
+           
+             <ng-container matColumnDef="sb_id" *ngIf="isSB"> 
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> SB ID </th>
+               <td mat-cell *matCellDef="let element"> {{element.sb_id}} </td>
+             </ng-container>
+           
+             <ng-container matColumnDef="sb_item_id" *ngIf="isSB">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> SB Item ID </th>
+               <td mat-cell *matCellDef="let element"> {{element.sb_item_id}} </td>
+             </ng-container>
+         
+              <ng-container matColumnDef="desc">
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                 <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+               </ng-container>
+             
+               <ng-container matColumnDef="priority">
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
+                 <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+               </ng-container>
+             
+               <ng-container matColumnDef="status">
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                 <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+               </ng-container>
+     
+               <ng-container matColumnDef="edit">
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+                 <td mat-cell *matCellDef="let element">
+                     <mat-icon *ngIf="isPB && !isShared" (click)="openDialog('Update PB Item',element)">edit</mat-icon>
+                     <mat-icon *ngIf="isSB" (click)="openDialog('Update SB Item',element)">edit</mat-icon>
+                     <mat-icon *ngIf="isPB && !isShared" (click)="openDialog('Delete PB Item',element)">delete</mat-icon>
+                     <mat-icon *ngIf="isSB" (click)="openDialog('Delete SB Item',element)">delete</mat-icon>
+                     <i *ngIf="isPB && isShared">Not authorised.</i>
+                 </td>
+               </ng-container>
+           
+             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumns; " ></tr>
+         </table>
+         <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+      </div>
+    </mat-card-content>
+  </mat-card>
  </div>
 
- <!-- <button mat-raised-button color="primary" class="btn"><mat-icon>edit</mat-icon></button>
- <button mat-raised-button color="primary" class="btn"><mat-icon>delete</mat-icon></button>    -->
-
- <!-- [ngClass]="{'selectedRow': selectedRowIndex == row.sb_item_id}" -->
-
- <!-- <div>
-    <mat-form-field class="example-full-width">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder=" " value=" " type="text" formControlName="password">
-    </mat-form-field>
- </div> -->

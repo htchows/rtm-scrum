@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from './../../shared/auth.service';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -11,30 +12,52 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   signupForm: FormGroup;
+  email_exists = false;
 
   constructor(
     public fb: FormBuilder,
     public authService: AuthService,
-    public router: Router
+    public router: Router, private _snackBar: MatSnackBar
   ) {
     this.signupForm = this.fb.group({
-      username: [''],
-      email: [''],
-      password: ['']
+      username: ['', [Validators.required, Validators.maxLength(20)] ],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.maxLength(10)]]
     })
+    console.log(this.signupForm.valid)
+
   }
 
   ngOnInit() { }
 
   registerUser() {
-    this.authService.register(this.signupForm.value).subscribe((res) => {
-      console.log("res" + res.result);
-      if (res.result) {
-        console.log("res result" + res.result);
-        this.signupForm.reset()
-        this.router.navigate(['/']);
-      }
+    this.authService.check_email(this.signupForm.value.email).subscribe((res) => {
+      if (res === "0") {
+        if(!this.email_exists){
+          this.authService.register(this.signupForm.value).subscribe((res) => {
+            if (res === "registered") {
+              this.signupForm.reset();
+              this.openSnackBar("Register successful !", "Dismiss")
+              this.router.navigate(['/login']);
+            }
+          })
+        } 
+      }else{
+        this.email_exists = true;
+        console.log(this.email_exists)
+      } 
     })
+    
+  }
+
+  hasError = (controlName: string, errorName: string) =>{
+    return this.signupForm.controls[controlName].hasError(errorName);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

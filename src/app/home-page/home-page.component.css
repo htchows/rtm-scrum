@@ -1,5 +1,5 @@
 .main-div{
-    height: 100vh;
+    height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,6 +20,6 @@ mat-card {
     width: 100%;
 }
 
-mat-grid-tile {
-    background: lightblue;
+button {
+    width: 100px;
 }

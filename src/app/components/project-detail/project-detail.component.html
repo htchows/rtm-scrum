@@ -1,21 +1,173 @@
-<p>Project Code:  {{project_detail.project_id}}</p>
-<p>Project Title:  {{project_detail.title}}</p>
-<p>Project Description:  {{project_detail.description}}</p>
-<br>
-<p *ngIf='!has_product_backlog'>No product backlog</p>
-<p *ngIf='has_product_backlog'  
-    [routerLink]="['/project-detail/product-backlog', project_detail.project_id]">
-    VIEW PRODUCT BACKLOG
-</p>
-<br>
-<p *ngIf='!has_sprint_backlog'>No sprint backlog</p>
-<div *ngIf='has_sprint_backlog'>
-    <p>Sprint Backlog</p>
-    <ul>
-        <li  *ngFor="let sb of sprint_backlog_list" 
-        [routerLink]="['/project-detail/', project_detail.project_id, sb]">
-            {{sb}}
-        </li>
-    </ul>
+<div class="sidenav">
+    <button mat-fab class="back" color="primary"  routerLink="/dashboard">
+        <mat-icon>keyboard_backspace</mat-icon>
+    </button>
 </div>
-<p [routerLink]="['/project-detail/rtm', project_detail.project_id]">Generate RTM</p>
+<div class="main">
+    <mat-card>
+        <mat-card-header>
+          <mat-card-title>#{{project_detail.project_id}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>        
+            <p>Project Title:  {{project_detail.title}}</p>
+            <p>Project Description:  {{project_detail.description}}</p>
+            <p>Project Status:  {{project_detail.status}}</p>
+            <p>Share to:  {{project_detail.share}}</p>
+            <mat-icon (click)="editProject('Update Project',project_detail)">edit</mat-icon>
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Product Backlog</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>  
+            <button *ngIf='!has_product_backlog' mat-raised-button color="primary" 
+                    (click)="openDialog('Create PB Item', 'pb',project_detail.pid)">Create Product Backlog</button>  
+            <button *ngIf='has_product_backlog' mat-raised-button color="primary" (click)="openPB()">
+                    View Product Backlog
+            </button>     
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="example-card right">
+        <mat-card-header>
+          <mat-card-title>Sprint Backlog</mat-card-title>
+        </mat-card-header>
+        <mat-card-content> 
+            <button mat-raised-button color="primary"
+                    (click)="openDialog('Create SB Item', 'sb', project_detail.pid)">Create Sprint Backlog</button>         
+            <mat-list *ngIf='has_sprint_backlog'>
+                <mat-list-item *ngFor="let sb of sprint_backlog_list" (click)="openSB(sb)">
+                  <mat-icon mat-list-icon>folder</mat-icon>
+                  <div mat-line>{{sb}}</div>
+                  <!-- <div mat-line> {{folder.updated | date}} </div> -->
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="top" id="rtm">
+        <mat-card-header>
+          <mat-card-title>Requirement Traceability Matrix</mat-card-title>
+        </mat-card-header>
+        <mat-card-content> 
+            <button mat-raised-button color="primary"
+                [routerLink]="['/rtm']">Generate New RTM
+            </button>
+            <div mat-subheader>Filter</div>
+            <table mat-table [dataSource]="dataSource" *ngIf="has_rtm">  
+                <ng-container matColumnDef="no">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="keyword">
+                    <th mat-header-cell *matHeaderCellDef> Keyword </th>
+                    <td mat-cell *matCellDef="let element"> {{element.keyword}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="backlog">
+                  <th mat-header-cell *matHeaderCellDef> Searh By </th>
+                  <td mat-cell *matCellDef="let element"> {{element.backlog}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="priority">
+                  <th mat-header-cell *matHeaderCellDef> Priority </th>
+                  <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Project Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="edit" >
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-stroked-button color="primary"
+                        [routerLink]="['/rtm', { 
+                            keyword:element.keyword,
+                            backlog:element.backlog,
+                            priority:element.priority,
+                            status:element.status
+                        }]">Generate RTM
+                        </button>
+                        <button mat-stroked-button color="primary"
+                                (click)="openDialog('Delete RTM', 'rtm', element.id)">Delete Filter
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+            </table>         
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="top">
+        <mat-card-header>
+          <mat-card-title>Export To CSV</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>        
+            <button mat-raised-button color="primary" (click)="download()">Export PB & SB To CSV</button>
+            <!-- <button mat-raised-button color="primary" (click)="exportExcel()">Export To Excel</button> -->
+    
+        </mat-card-content>
+    </mat-card>
+    
+    <!-- <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Backlogs</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <div mat-subheader>Product Backlog</div>
+                <mat-list-item *ngIf='!has_product_backlog'>
+                  <div mat-line><button mat-raised-button color="primary">Create Product Backlog</button></div>
+                </mat-list-item>
+                <mat-list-item *ngIf='has_product_backlog'  [routerLink]="['/project-detail/product-backlog', project_detail.project_id]">
+                    <mat-icon mat-list-icon>folder</mat-icon>
+                    <div mat-line>View Product Backlog</div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <div mat-subheader>Sprint Backlog</div>
+                <mat-list-item *ngIf='!has_sprint_backlog'>
+                    <div mat-line><button mat-raised-button color="primary">Create Sprint Backlog</button></div>
+                </mat-list-item>     
+                <mat-list-item  *ngFor="let sb of sprint_backlog_list"
+                [routerLink]="['/project-detail/', project_detail.project_id, sb]">
+                  <mat-icon mat-list-icon>folder</mat-icon>
+                  <div mat-line>{{sb}}</div>
+                </mat-list-item>
+            </mat-list>  
+           
+        </mat-card-content>
+    </mat-card> -->
+    <!-- <div>
+        <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>#{{project_detail.project_id}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+               
+                
+                <p>Project Title:  {{project_detail.title}}</p>
+                <p>Project Description:  {{project_detail.description}}</p>
+                <p>Project Status:  {{project_detail.status}}</p>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>#{{project_detail.project_id}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                
+                
+                <p>Project Title:  {{project_detail.title}}</p>
+                <p>Project Description:  {{project_detail.description}}</p>
+                <p>Project Status:  {{project_detail.status}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div> -->
+</div>

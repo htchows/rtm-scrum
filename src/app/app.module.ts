@@ -62,6 +62,7 @@ import { ProjectDetailComponent } from './components/project-detail/project-deta
 import { BacklogsComponent } from './components/backlogs/backlogs.component';
 import { RtmComponent } from './components/rtm/rtm.component';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 
 const appRoutes: Routes = [
@@ -82,7 +83,8 @@ const appRoutes: Routes = [
     //ProductBacklogComponent,
     BacklogsComponent,
     RtmComponent,
-    DialogBoxComponent
+    DialogBoxComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,

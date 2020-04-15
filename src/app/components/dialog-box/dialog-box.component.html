@@ -1,44 +1,161 @@
-<h1 mat-dialog-title *ngIf="isPB">Product Item: # {{ data.data.pb_id }}</h1>
-<h1 mat-dialog-title *ngIf="isSB">Sprint Item: # {{ data.data.sb_item_id }}</h1>
+<!-- Project -->
+<div *ngIf="isPrj_create || isPrj_update">
+    <h1 mat-dialog-title *ngIf="isPrj_create">Create Project</h1>
+    <h1 mat-dialog-title *ngIf="isPrj_update">Update Project</h1>
 
-<div mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Product Backlog ID</mat-label>
-    <input matInput [(ngModel)]="data.data.pb_id">
-  </mat-form-field>
+    <div mat-dialog-content [formGroup]="itemForm">
+        <mat-form-field>
+            <mat-label>Project ID</mat-label>
+            <input matInput [(ngModel)]="data.data.project_id" type="text" formControlName="prj_id">
+        </mat-form-field>
 
-  <mat-form-field *ngIf="isSB">
-    <mat-label>Sprint Backlog ID</mat-label >
-    <input matInput [(ngModel)]="data.data.sb_id">
-  </mat-form-field>
+        <mat-form-field>
+            <mat-label>Tittle</mat-label>
+            <input matInput [(ngModel)]="data.data.title" type="text" formControlName="title">
+        </mat-form-field>
 
-  <mat-form-field *ngIf="isSB">
-    <mat-label>Sprint Item ID</mat-label>
-    <input matInput [(ngModel)]="data.data.sb_item_id">
-  </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="data.data.description" type="text" formControlName="desc">
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <input matInput [(ngModel)]="data.data.desc">
-  </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="data.data.status" formControlName="status">
+                <mat-option value="Open">Open</mat-option>
+                <mat-option value="Close">Close</mat-option>
+                <mat-option value="Pending">Pending</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Priority</mat-label>
-    <mat-select [(value)]="data.data.priority">
-      <mat-option value="High">High</mat-option>
-      <mat-option value="Medium">Medium</mat-option>
-      <mat-option value="Low">Low</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Status</mat-label>
-    <input matInput [(ngModel)]="data.data.status">
-  </mat-form-field>
+        <mat-form-field>
+            <mat-label>Share To</mat-label>
+            <textarea  [(ngModel)]="data.data.share" formControlName="share"
+            matInput placeholder="Use ',' to seperate email"></textarea>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button *ngIf="isPrj_create" color="primary" (click)="prj_create()" [mat-dialog-close]="data.action" cdkFocusInitial>
+            {{ data.action }}
+        </button>
+        <button mat-button *ngIf="isPrj_update" color="primary" (click)="prj_update()" [mat-dialog-close]="data.action" cdkFocusInitial>
+            {{ data.action }}
+        </button>
+    </div>
 </div>
-<small> *This action is not reversible.</small>
-<br />
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button color="primary" [mat-dialog-close]="data.data.prj_id" cdkFocusInitial>{{ data.action }}</button>
+
+<div *ngIf="isPrj_delete">
+    <h1 mat-dialog-title>Delete Project</h1>
+    <div mat-dialog-content>
+        <p>Are you sure to delete project # {{data.data.project_id}} ?</p>
+        <p>This action is not reversible.</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button color="primary" (click)="prj_delete()" [mat-dialog-close]="data.action" cdkFocusInitial>
+            {{ data.action }}
+        </button>
+    </div>
+</div>
+
+<!-- Backlogs -->
+<div *ngIf="(isPB || isSB )&& !isPB_delete && !isSB_delete">
+    <h1 mat-dialog-title *ngIf="isPB">Product Item: # {{ data.data.pb_id }}</h1>
+    <h1 mat-dialog-title *ngIf="isSB">Sprint Item: # {{ data.data.sb_item_id }}</h1>
+
+    <div mat-dialog-content [formGroup]="itemForm">
+        <mat-form-field *ngIf="isPB">
+            <mat-label>Product Backlog ID</mat-label>
+            <input matInput [(ngModel)]="data.data.pb_id" type="text" formControlName="pb_id">
+        </mat-form-field>
+        
+        <mat-form-field *ngIf="isSB">
+            <mat-label>Product Backlog ID</mat-label>
+            <mat-select [(ngModel)]="data.data.pbid" formControlName="pb_id">
+                <mat-option *ngFor="let pb of pb_list" 
+                            [value]="pb.pbid" >{{ pb.pb_id }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="isSB">
+            <mat-label>Sprint Backlog ID</mat-label >
+            <input matInput [(ngModel)]="data.data.sb_id" type="text" formControlName="sb_id">
+        </mat-form-field>
+        
+        <mat-form-field *ngIf="isSB">
+            <mat-label>Sprint Item ID</mat-label>
+            <input matInput [(ngModel)]="data.data.sb_item_id" type="text" formControlName="sb_item_id">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="data.data.desc" type="text" formControlName="desc">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Priority</mat-label>
+            <mat-select [(ngModel)]="data.data.priority" formControlName="priority">
+                <mat-option value="High">High</mat-option>
+                <mat-option value="Medium">Medium</mat-option>
+                <mat-option value="Low">Low</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="data.data.status" formControlName="status">
+                <mat-option value="Open">Open</mat-option>
+                <mat-option value="Close">Close</mat-option>
+                <mat-option value="Pending">Pending</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <small> *This action is not reversible.</small>
+    <br />
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button *ngIf="isPB_create" color="primary" (click)="pb_create()" cdkFocusInitial>{{ data.action }}</button>
+        <button mat-button *ngIf="isSB_create" color="primary" (click)="sb_create()" cdkFocusInitial>{{ data.action }}</button>
+        <button mat-button *ngIf="isPB_update" color="primary" (click)="pb_update()" cdkFocusInitial>{{ data.action }}</button>
+        <button mat-button *ngIf="isSB_update" color="primary" (click)="sb_update()" cdkFocusInitial>{{ data.action }}</button>
+        <button mat-button *ngIf="isSB_add" color="primary" (click)="sb_add()" cdkFocusInitial>{{ data.action }}</button>
+    </div>
+</div>
+
+<div *ngIf="isPB_delete || isSB_delete">
+    <h1 mat-dialog-title>{{data.action}}</h1>
+    <div mat-dialog-content *ngIf="isPB_delete">
+        <p>Are you sure to delete Product Backlog Item #{{data.data.pb_id}} from Project #{{data.data.prj_id}} ?</p>
+        <strong>All related sprint backlog item will be deleted as well.</strong>
+        <p>This action is not reversible.</p>
+    </div>
+    <div mat-dialog-content *ngIf="isSB_delete">
+        <p>Are you sure to delete Sprint Backlog Item #{{data.data.sb_item_id}}  ?</p>
+        <p>This action is not reversible.</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button *ngIf="isPB_delete" color="primary" (click)="pb_delete()" [mat-dialog-close]="data.action" cdkFocusInitial>
+            Delete
+        </button>
+        <button mat-button *ngIf="isSB_delete" color="primary" (click)="sb_delete()" [mat-dialog-close]="data.action" cdkFocusInitial>
+            Delete
+        </button>
+    </div>
+</div>
+
+<!-- RTM -->
+<div *ngIf="isRTM_delete">
+    <h1 mat-dialog-title>Delete RTM Filter</h1>
+    <div mat-dialog-content>
+        <p>Are you sure to delete this filter ?</p>
+        <p>This action is not reversible.</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button color="primary" (click)="rtm_delete()" [mat-dialog-close]="data.action" cdkFocusInitial>
+            {{ data.action }}
+        </button>
+    </div>
 </div>

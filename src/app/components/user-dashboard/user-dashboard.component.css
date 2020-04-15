@@ -1,15 +1,37 @@
-table, th, td {
+/* table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
-}
+} */
 
-table {
+/* table {
     width: 70%;
-}
+} */
 
-.main-div{
-    /* height: 100vh; */
+/* .main-div{
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+
+.btn {
+    float: right;
+}
+
+table {
+    width: 100%;
+}
+
+.main {
+    margin: 20px 50px 50px 50px;
+}
+
+mat-icon {
+    cursor: pointer; 
+    margin-right: 20px;
+}
+
+.selectedRow {
+    background-color: red;
 }

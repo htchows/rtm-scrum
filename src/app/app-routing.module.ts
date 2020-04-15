@@ -20,11 +20,17 @@ const routes: Routes = [
   { path: 'dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/project-detail/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
-  { path: 'project-detail/product-backlog/:id', component: BacklogsComponent, canActivate: [AuthGuard] },
-  { path: 'project-detail/:id/:sb_id', component: BacklogsComponent, canActivate: [AuthGuard] },
-  { path: 'project-detail/rtm/:id', component: RtmComponent, canActivate: [AuthGuard] },
 
+  { path: 'dashboard/project-detail', component: ProjectDetailComponent, canActivate: [AuthGuard] },
+  { path: 'project-detail/product-backlog', component: BacklogsComponent, canActivate: [AuthGuard] },
+  { path: 'project-detail/sprint-backlog/:sb_id', component: BacklogsComponent, canActivate: [AuthGuard] },
+  
+  { path: 'dashboard/shared-project', component: ProjectDetailComponent, canActivate: [AuthGuard] },
+  { path: 'shared-project/product-backlog', component: BacklogsComponent, canActivate: [AuthGuard] },
+  { path: 'shared-project/sprint-backlog/:sb_id', component: BacklogsComponent, canActivate: [AuthGuard] },
+  
+  { path: 'rtm', component: RtmComponent, canActivate: [AuthGuard] },
+  { path: 'rtm/:id', component: RtmComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

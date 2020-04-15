@@ -1,15 +1,30 @@
 <form class="example-form" [formGroup]="signupForm" (ngSubmit)="registerUser()">
-    <mat-form-field class="example-full-width">
-        <mat-label>Username</mat-label>
-        <input matInput placeholder=" " value=" " formControlName="username" required>
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder=" " value=" " formControlName="email" required>
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder=" " value=" " formControlName="password" required>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Sign Up</button>
+    <div class="form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder=" " value=" " formControlName="username" required>
+            <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('username', 'required')">Usename is required</mat-error>
+            <mat-error *ngIf="hasError('username', 'maxlength')">You have more than 20 characters</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder=" " value=" " type="email" formControlName="email" required>
+            <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+            <mat-error *ngIf="hasError('email', 'email')">Not an email</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder=" " value=" " formControlName="password" required>
+            <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+            <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>
+        </mat-form-field>
+    </div>
+    <button mat-raised-button [routerLink]="['/home-page']">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+    <br />
+    <mat-error *ngIf="email_exists">This email is being used</mat-error>
 </form>
