@@ -17,7 +17,7 @@
         
         <mat-form-field class="example-full-width">
             <mat-label>Password</mat-label>
-            <input matInput placeholder=" " value=" " formControlName="password" required>
+            <input matInput placeholder=" " value=" " type="password" formControlName="password" required>
             <mat-hint align="end">Not more then 10 characters long.</mat-hint>
             <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
             <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>

@@ -56,6 +56,7 @@ export class DialogBoxComponent implements OnInit {
         desc: [''],
         status: [''],
         share:[""],
+        action:['']
       })
       console.log(this.data.data)
     }else if(data.action === 'Delete Project'){
@@ -89,6 +90,7 @@ export class DialogBoxComponent implements OnInit {
         desc: [''],
         priority: [''],
         status: [''],
+        action:['']
       })
     }else if(data.action === "Delete RTM"){
       this.isRTM_delete = true;
@@ -103,6 +105,7 @@ export class DialogBoxComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  //PROJECT
   prj_create():void {
     this.itemForm.controls['user_id'].setValue(this.data.data);
     var email = this.itemForm.value.share.split(',');
@@ -142,18 +145,37 @@ export class DialogBoxComponent implements OnInit {
     this.projectService.delete_project(this.data.data.pid).subscribe(() => { this.dialogRef.close(); });
   }
 
+  //PRODUCT BACKLOG
+  pb_id_exists = false;
   pb_create():void {
     this.itemForm.controls['prj_id'].setValue(this.prj_id);
-    this.projectService.create_product_backlog_item(this.itemForm.value).subscribe(() => { 
-      this.dialogRef.close(); 
+    this.itemForm.controls['action'].setValue('create');
+    this.projectService.check_pb_id(this.itemForm.value).subscribe((r) => { 
+      if(r==="0"){
+        this.pb_id_exists = false;
+        this.projectService.create_product_backlog_item(this.itemForm.value).subscribe(() => { 
+          this.dialogRef.close(); 
+        });
+      }else{
+        this.pb_id_exists = true;
+      }
     });
+    
   }
 
   pb_update():void {
     this.itemForm.controls['prj_id'].setValue(this.prj_id);
-    this.projectService.update_product_backlog_item(this.itemForm.value)
-    .subscribe(() => { 
-      this.dialogRef.close(); 
+    this.itemForm.controls['pbid'].setValue(this.data.data.pbid);
+    this.itemForm.controls['action'].setValue('update');
+    this.projectService.check_pb_id(this.itemForm.value).subscribe((r) => { 
+      if(r==="0"){
+        this.pb_id_exists = false;
+        this.projectService.update_product_backlog_item(this.itemForm.value).subscribe(() => { 
+          this.dialogRef.close(); 
+        });
+      }else{
+        this.pb_id_exists = true;
+      }
     });
   }
 
@@ -164,6 +186,7 @@ export class DialogBoxComponent implements OnInit {
     });
   }
 
+  //SPRINT BACKLOG
   sb_create():void {
     this.itemForm.controls['prj_id'].setValue(this.prj_id);
     this.projectService.create_sprint_backlog_item(this.itemForm.value)
@@ -198,41 +221,7 @@ export class DialogBoxComponent implements OnInit {
     });
   }
   
-
-  create():void {
-    this.itemForm.controls['prj_id'].setValue(this.prj_id);
-    if(this.isPB){
-      this.projectService.create_product_backlog_item(this.itemForm.value)
-      .subscribe(() => { 
-        this.dialogRef.close(); 
-      });
-    }else{
-      this.projectService.update_sprint_backlog_item(this.itemForm.value)
-      .subscribe(() => { 
-        this.dialogRef.close(); 
-      });
-    }
-  }
-
-  update():void {
-    this.itemForm.controls['prj_id'].setValue(this.prj_id);
-    if(this.isPB){
-      this.projectService.update_product_backlog_item(this.itemForm.value)
-      .subscribe(() => { 
-        this.dialogRef.close(); 
-      });
-    }else{
-      this.projectService.update_sprint_backlog_item(this.itemForm.value)
-      .subscribe(() => { 
-        this.dialogRef.close(); 
-      });
-    }
-  }
-
-  delete():void {
-    
-  }
-
+  //RTM
   rtm_delete():void {
     this.projectService.rtm_delete(this.data.data.prj_id)
       .subscribe(() => { 

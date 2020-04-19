@@ -1,5 +1,5 @@
 .example-card {
-    cursor: pointer;
+    /* cursor: pointer; */
     margin: 20px 0px 0px 0px;
 }
 
@@ -11,8 +11,7 @@ table {
     margin: 20px;
 }
 
-button {
-    cursor: pointer; 
+.table-buttom {
     margin-right: 20px;
 }
 
@@ -41,4 +40,26 @@ button {
 
 .back {
     float: right;
+}
+
+.edit {
+    /* font-size: 16px !important; */
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.card-container-right{
+    /* display: inline; */
+    float: right;
+}
+  
+.card-container-left{
+    /* display: inline; */
+    float: left;
+    margin-top: 15px !important;
+}
+
+
+.main-button {
+    cursor: pointer; 
 }

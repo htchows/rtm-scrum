@@ -40,12 +40,15 @@ export class ProjectDetailComponent implements OnInit {
     private _snackBar: MatSnackBar) 
   {
     
-    //this.currentId = this.authService.getToken();
+    this.currentId = this.authService.getToken();
     this.projectId = this.projectService.getToken();
-    this.isShared = this.actRoute.snapshot.url[1].path == "shared-project"? true:false;
+    //this.isShared = this.actRoute.snapshot.url[1].path == "shared-project"? true:false;
+    this.isShared = this.projectService.getShareToken() === "true"? true:false;
 
+    console.log(this.projectId)
     this.projectService.get_project_detail(this.projectId).subscribe(prj => { 
-      this.project_detail = prj[0];console.log(this.project_detail)
+      console.log(prj)
+      this.project_detail = prj[0];
     });
     
     this.projectService.get_product_backlog(this.projectId)

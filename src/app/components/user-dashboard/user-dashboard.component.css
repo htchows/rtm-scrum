@@ -32,6 +32,18 @@ mat-icon {
     margin-right: 20px;
 }
 
-.selectedRow {
-    background-color: red;
+.card-container-right{
+    /* display: inline; */
+    float: right;
+}
+  
+.card-container-left{
+    /* display: inline; */
+    float: left;
+    margin-top: 15px !important;
+}
+
+
+.icon {
+    margin-right: 0px !important;
 }

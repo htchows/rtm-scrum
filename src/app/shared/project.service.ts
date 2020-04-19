@@ -96,6 +96,9 @@ export class ProjectService {
     return this.http.post<any>(`api/product_backlog_delete_item.php`, params);  
   }
 
+  check_pb_id (params) : Observable<any> {
+    return this.http.post<any>(`api/product_backlog_id.php`, params);  
+  }
 
   //SPRINT BACKLOG
   get_sprint_backlog_list(prj_id) : Observable<any[]> {

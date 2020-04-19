@@ -19,7 +19,7 @@ export class AuthService {
   constructor(private http: HttpClient,public router: Router) { }
 
   // Sign-up
-  register(user: User): Observable<any> {
+  register(user): Observable<any> {
     let api = `api/register.php`;
    // console.log(user);
     return this.http.post(api, user)
@@ -33,13 +33,14 @@ export class AuthService {
   }
 
   // Sign-in
-  login(user: User) {
+  login(user) {
     return this.http.post<any>(`api/login.php`, user)
       .subscribe((res: any) => {
         //console.log(res);
         localStorage.setItem('token', res[0].id);
         this.currentUser = res;
         this.router.navigate(['/dashboard']);
+        // return this.isLoggedIn;
         // this.router.navigate(['/dashboard/', res[0].id ]);
         
         // this.getUserProfile(res[0].id).subscribe((res) => {

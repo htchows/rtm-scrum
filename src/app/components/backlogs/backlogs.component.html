@@ -6,16 +6,18 @@
 <div class="main"> 
   <mat-card>
     <mat-card-header>
-      <mat-card-title *ngIf="isPB">Product Backlog</mat-card-title>
-      <mat-card-title *ngIf="isSB">Sprint Backlog #{{sbId}}</mat-card-title>
+      <mat-card-title class="card-container-left" *ngIf="isPB">Product Backlog</mat-card-title>
+      <mat-card-title class="card-container-left" *ngIf="isSB">Sprint Backlog #{{sbId}}</mat-card-title>
+      <mat-card-title class="card-container-right">
+        <button mat-raised-button *ngIf="isPB" color="primary" class="btn" type="submit" 
+          (click)="openDialog('Create PB Item', data)">Add item
+        </button>
+        <button mat-raised-button *ngIf="isSB" color="primary" class="btn" type="submit"
+          (click)="openDialog('Add SB Item', data)">Add Item
+        </button>
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>        
-      <button mat-raised-button *ngIf="isPB" color="primary" class="btn" type="submit" 
-              (click)="openDialog('Create PB Item', data)">Add item
-      </button>
-      <button mat-raised-button *ngIf="isSB" color="primary" class="btn" type="submit"
-              (click)="openDialog('Add SB Item', data)">Add Item
-      </button>
       <div [formGroup]="itemForm" (ngSubmit)="submit()">
          <table mat-table [dataSource]="dataSource" matSort>
              <ng-container matColumnDef="no">
