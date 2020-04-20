@@ -13,6 +13,6 @@
         <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>
     </mat-form-field>
     <button mat-raised-button [routerLink]="['/home-page']">Cancel</button>
-    <button mat-raised-button color="primary" class="btn" type="submit" [disabled]="!signinForm.valid">Login</button>
+    <button mat-raised-button color="primary" class="btn" type="submit">Login</button>
     <mat-error *ngIf="invalid">Invalid email or password</mat-error>
 </form>

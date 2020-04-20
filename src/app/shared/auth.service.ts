@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   check_email (email) : Observable<any> {
-    return this.http.post<any>(`api/register_email.php`, email);  
+    return this.http.post<any>(`api/register_email.php`, JSON.stringify(email));  
   }
 
   // Sign-in

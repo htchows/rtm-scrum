@@ -29,13 +29,16 @@ export class LoginComponent implements OnInit {
   invalid=false;
 
   loginUser() {
-    this.authService.login(this.signinForm.value);
-    if(this.authService.isLoggedIn){
-      this.invalid = false;
-      this.openSnackBar();
-    }else{
-      this.invalid = true;
+    if(this.signinForm.valid){
+      this.authService.login(this.signinForm.value);
+      if(this.authService.isLoggedIn){
+        this.invalid = false;
+        this.openSnackBar();
+      }else{
+        this.invalid = true;
+      }
     }
+    
   }
 
   hasError = (controlName: string, errorName: string) =>{

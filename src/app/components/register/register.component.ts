@@ -24,8 +24,6 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.maxLength(10)]]
     })
-    console.log(this.signupForm.valid)
-
   }
 
   ngOnInit() { }
@@ -33,15 +31,14 @@ export class RegisterComponent implements OnInit {
   registerUser() {
     this.authService.check_email(this.signupForm.value.email).subscribe((res) => {
       if (res === "0") {
-        if(!this.email_exists){
-          this.authService.register(this.signupForm.value).subscribe((res) => {
-            if (res === "registered") {
-              this.signupForm.reset();
-              this.openSnackBar("Register successful !", "Dismiss")
-              this.router.navigate(['/login']);
-            }
-          })
-        } 
+        this.email_exists = false;
+        this.authService.register(this.signupForm.value).subscribe((res) => {
+          if (res === "registered") {
+            this.signupForm.reset();
+            this.openSnackBar("Register successful !", "Dismiss")
+            this.router.navigate(['/login']);
+          }
+        })
       }else{
         this.email_exists = true;
         console.log(this.email_exists)

@@ -39,4 +39,15 @@ export class AuthGuard implements CanActivate {
     // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
     // return false;
   }
+
+  canActivateShare(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const currentUser = this.authService.currentUser;
+    
+    if (currentUser && this.authService.isLoggedIn) {
+        return true;
+    }else{
+      window.alert("Access not allowed!");
+      this.router.navigate(['/login'])
+    }
+  }
 }

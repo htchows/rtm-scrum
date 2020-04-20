@@ -13,11 +13,9 @@ export class ExportService {
     }else if(type==='sb'){
       csvData = this.ConvertToCSV(data, ['prj_id', 'pb_id', 'sb_id','sb_item_id','desc','priority','status']);
     }else{
-      // csvData = this.ConvertToCSV(data, ['id','project_id', 'keyword', 'backlog', 'priority','status']);
       csvData = this.ConvertToCSV(data, ['project_id', 'pb_id', 'pb_desc', 'pb_priority','pb_status',
       'sb_id','sb_item_id','sb_desc','sb_desc','sb_priority','sb_status']);
     }
-    // console.log(csvData)
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);

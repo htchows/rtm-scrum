@@ -49,11 +49,7 @@ export class BacklogsComponent implements OnInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar) 
   {
-    //this.userId = this.authService.getToken();
-    //let id = this.actRoute.snapshot.paramMap.get('id');
-    //console.log(this.actRoute.snapshot.url[1].path == "product-backlog"? true:false);
     this.projectId = this.projectService.getToken();
-    console.log(this.projectId)
     this.sbId = actRoute.snapshot.params.sb_id;
     this.isShared = this.projectService.getShareToken() == "true"? true:false;
    
