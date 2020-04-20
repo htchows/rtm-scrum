@@ -3,10 +3,10 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET,POST,OPTIONS,DELETE,PUT");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
-define('DB_HOST', 'https://www.db4free.net/phpMyAdmin/');
-define('DB_USER', 'rtmscrum');
-define('DB_PASS', 'rtmscrum');
-define('DB_NAME', 'rtmscrum');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'rtm_db');
 
 function connect()
 {
