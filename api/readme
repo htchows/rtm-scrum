@@ -1,0 +1,34 @@
+php -S 127.0.0.1:8080 -t ./angular7-php-app/backend
+
+php -S 127.0.0.1:8080 -t C:\Users\user\Documents\UTAR\FYP-2\backend
+
+ng generate component components/
+ng generate component components/dialog-box --skipTests=true
+
+ get_project_own(user_id)  {
+    //return this.http.get<any[]>(`api/project_list.php`, user_id);
+    return this.http.post<any>(`api/project_list.php`, user_id)
+      .subscribe((res: any) => {
+        console.log('prjservice' + res);
+        //this.project_list = res;
+        return res;
+      })
+    // return this.http.get<any>(`api/project_list.php`, user_id).pipe(
+    // tap((res) => console.log(res)),
+    //catchError(this.handleError<any>(`getHero id=${id}`))
+  
+    }
+constructor( public authService: AuthService, private projectService: ProjectService, private actRoute: ActivatedRoute) {
+    // let id = this.actRoute.snapshot.paramMap.get('id');
+    // this.authService.getUserProfile(id).subscribe(res => {
+    //   this.currentUser = res.msg;
+    // })
+    this.currentId = this.authService.getToken();
+    this.projectService
+        .get_project_own(parseInt(this.currentId))
+        .subscribe(prj => {console.log(prj); this.project_own_list = prj} );
+        
+    //this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+    //console.log(this.project_own_list);
+    //console.log(this.projectService.get_project_list);
+  }

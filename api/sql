@@ -1,0 +1,130 @@
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `pwd` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `project` (
+    `project_id` varchar(11) NOT NULL UNIQUE,
+    `user_id` int(11) NOT NULL,
+	`title` varchar(200) NOT NULL,
+	`description` varchar(500),
+	PRIMARY KEY (`project_id`),
+	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `project_viewer` (
+    `project_id` varchar(11) NOT NULL,
+    `user_id` int(11) NOT NULL,
+	PRIMARY KEY (`project_id`,`user_id`),
+	FOREIGN KEY (`project_id`) REFERENCES `project`(`project_id`)
+	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SELECT * FROM `project` INNER JOIN project_viewer ON project.project_id = project_viewer.project_id
+project.project_id, project.user_id, project.title, project.description
+
+CREATE TABLE `product_backlog` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `project_id` varchar(11) NOT NULL,
+	`pb_id` varchar(11) NOT NULL,
+	`pb_desc` varchar(500) NOT NULL,
+	`pb_priority` varchar(100) NOT NULL,
+	`pb_status` varchar(100) NOT NULL,
+	PRIMARY KEY (`project_id,pb_id`),
+	FOREIGN KEY (`project_id`) REFERENCES `project`(`project_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `sprint_backlog` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `project_id` varchar(11) NOT NULL,
+	`sb_id` varchar(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`project_id`) REFERENCES `project`(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `sprint_backlog` (
+    `project_id` varchar(11) NOT NULL,
+	`pb_id` varchar(11) NOT NULL,
+	`sb_id` varchar(11) NOT NULL,
+	`sb_item_id` varchar(11) NOT NULL,
+	`sb_desc` varchar(500) NOT NULL,
+	`sb_priority` varchar(100) NOT NULL,
+	`sb_status` varchar(100) NOT NULL,
+	PRIMARY KEY (`project_id`,`pb_id`,`sb_id`,`sb_item_id` ),
+	FOREIGN KEY (`project_id`) REFERENCES `project`(`project_id`),
+	FOREIGN KEY (`pb_id`) REFERENCES `product_backlog`(`pb_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `product_backlog`(`project_id`, `pb_id`, `pb_desc`, `pb_status`) 
+VALUES ("CD23","PB01","Login Component","Ongoing")
+
+CREATE TABLE `req_trace_matrix` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`project_id` varchar(11) NOT NULL,
+	`keyword` varchar(200) NOT NULL,
+	`backlog` varchar(20) NOT NULL,
+	`priority` varchar(20),
+    `status` varchar(20) NOT NULL,
+	FOREIGN KEY (`project_id`) REFERENCES `project`(`project_id`),
+	PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SELECT * 
+FROM `sprint_backlog` 
+INNER JOIN product_backlog 
+ON product_backlog.project_id = 'CD23'
+AND product_backlog.pb_id = 'PB001'
+AND sprint_backlog.pb_id = product_backlog.pb_id
+
+SELECT pb_id FROM product_backlog WHERE pb_desc LIKE '%login%'
+
+SELECT pb_id 
+FROM product_backlog 
+WHERE project_id = 'CD23'
+AND pb_desc LIKE '%login%'
+AND pb_priority = 'High'
+AND pb_status = 'Open'
+
+SELECT * FROM `sprint_backlog` INNER JOIN product_backlog ON product_backlog.project_id = 'CD23' AND sprint_backlog.pb_id = 'PB001'
+
+SELECT pb.project_id, pb.pb_id, pb.pb_desc, pb.pb_priority, pb.pb_status, sb.sb_id, sb.sb_item_id, sb.sb_desc, sb.sb_priority,sb.sb_priority, sb.sb_status 
+FROM `product_backlog` AS pb
+INNER JOIN sprint_backlog AS sb
+ON sb.pb_id = pb.pb_id
+AND sb.project_id = pb.project_id
+WHERE sb.project_id = 'CD23'
+AND sb.pb_id = 'PB001'
+OR sb.pb_id = 'PB003'
+ORDER BY pb.pb_id
+
+SELECT pb.project_id, pb.pb_id, pb.pb_desc, pb.pb_priority, pb.pb_status, sb.sb_id, sb.sb_item_id, sb.sb_desc, sb.sb_priority,sb.sb_priority, sb.sb_status 
+FROM `product_backlog` AS pb
+INNER JOIN sprint_backlog AS sb
+ON sb.pb_id = pb.pb_id
+AND sb.project_id = pb.project_id
+WHERE sb.project_id = 'CD23'
+AND (sb.pb_id = 'PB002' AND sb.sb_id = 'SB001' AND sb.sb_item_id = 's001')
+OR (sb.pb_id = 'PB002' AND sb.sb_id = 'SB001' AND sb.sb_item_id = 's002')
+OR (sb.pb_id = 'PB002' AND sb.sb_id = 'SB001' AND sb.sb_item_id = 's003')
+OR (sb.pb_id = 'PB002' AND sb.sb_id = 'SB002' AND sb.sb_item_id = 's001')
+OR (sb.pb_id = 'PB001' AND sb.sb_id = 'SB001' AND sb.sb_item_id = 's007')
+ORDER BY pb.pb_id
+
+SELECT *
+FROM product_backlog AS pb
+INNER JOIN sprint_backlog AS sb
+ON sb.project_id = pb.project_id
+AND sb.pb_id = pb.pb_id
+WHERE sb.project_id = 'CD23'
+AND sb.sb_desc LIKE '%login%'
+
+SELECT pb.project_id, pb.pb_id, pb.pb_desc, pb.pb_priority, pb.pb_status, sb.sb_id, sb.sb_item_id, sb.sb_desc, sb.sb_priority,sb.sb_priority, sb.sb_status 
+FROM `product_backlog` AS pb
+INNER JOIN sprint_backlog AS sb
+ON sb.pb_id = pb.pb_id
+AND sb.project_id = pb.project_id
+WHERE sb.project_id = 'CD23'
+AND pb.pb_id = 'PB001'
