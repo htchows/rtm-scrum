@@ -77,7 +77,7 @@
             <mat-label>Product Backlog ID</mat-label>
             <mat-select [(ngModel)]="data.data.pbid" formControlName="pb_id">
                 <mat-option *ngFor="let pb of pb_list" 
-                            [value]="pb.pbid" >{{ pb.pb_id }}</mat-option>
+                            [value]="pb.pbid" >{{ pb.pb_id }} - {{ pb.desc }}</mat-option>
             </mat-select>
         </mat-form-field>
 

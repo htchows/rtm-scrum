@@ -29,22 +29,23 @@ export class RegisterComponent implements OnInit {
   ngOnInit() { }
 
   registerUser() {
-    this.authService.check_email(this.signupForm.value.email).subscribe((res) => {
-      if (res === "0") {
-        this.email_exists = false;
-        this.authService.register(this.signupForm.value).subscribe((res) => {
-          if (res === "registered") {
-            this.signupForm.reset();
-            this.openSnackBar("Register successful !", "Dismiss")
-            this.router.navigate(['/login']);
-          }
-        })
-      }else{
-        this.email_exists = true;
-        console.log(this.email_exists)
-      } 
-    })
-    
+    if(this.signupForm.valid){
+      this.authService.check_email(this.signupForm.value.email).subscribe((res) => {
+        if (res === "0") {
+          this.email_exists = false;
+          this.authService.register(this.signupForm.value).subscribe((res) => {
+            if (res === "registered") {
+              this.signupForm.reset();
+              this.openSnackBar("Register successful !", "Dismiss")
+              this.router.navigate(['/login']);
+            }
+          })
+        }else{
+          this.email_exists = true;
+          console.log(this.email_exists)
+        } 
+      })
+    }
   }
 
   hasError = (controlName: string, errorName: string) =>{
