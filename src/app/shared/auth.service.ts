@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 export class AuthService {
   proxyurl = "https://cors-anywhere.herokuapp.com/";
-  endpoint: string = '../../../api';
+  endpoint: string = 'http://127.0.0.1:8080/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   currentUser = {};
