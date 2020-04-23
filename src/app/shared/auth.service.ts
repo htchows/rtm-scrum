@@ -21,7 +21,7 @@ export class AuthService {
   // Sign-up
   register(user): Observable<any> {
     let api = `api/register.php`;
-   // console.log(user);
+  
     return this.http.post(api, user)
       .pipe(
         catchError(this.handleError)
