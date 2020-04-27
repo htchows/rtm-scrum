@@ -26,8 +26,9 @@ export class RtmComponent implements OnInit {
 
   displayedColumns: string[] = ['pb_id','pb_desc','pb_priority','pb_status','sb_id','sb_item_id','sb_desc','sb_priority','sb_status'];
   dataSource;
-
+  noRecord = true;
   input;
+  priority; status;
   private state$: Observable<any>;
 
   constructor( public fb: FormBuilder, public authService: AuthService, private _snackBar: MatSnackBar,
@@ -46,6 +47,14 @@ export class RtmComponent implements OnInit {
       priority: [''],
       status: ['']
     })
+    if(!this.input.hasOwnProperty('priority')){
+      this.priority = "";
+      this.status = ""
+    }else{
+      // console.log(this.input)
+      this.priority = this.input.priority;
+      this.status = this.input.status;
+    }
   }
 
   ngOnInit(): void { 
@@ -55,17 +64,22 @@ export class RtmComponent implements OnInit {
   query;
   generate(){
     this.query = this.searchForm.value;
-    console.log(this.query)
     if(this.query.backlog === 'Product Backlog'){
       this.projectService.rtm_get_pd_id(this.query).subscribe((pb_id)=> { this.generte_rtm_pb(pb_id) });
     }else{
-      this.projectService.rtm_by_sb(this.query).subscribe((rtm)=> { this.dataSource = rtm });
+      this.projectService.rtm_by_sb(this.query).subscribe((rtm)=> { 
+        this.dataSource = rtm;
+        this.noRecord = rtm.length > 0 ? false:true; 
+      });
     }
   }
 
   generte_rtm_pb(item){
     const query = {'prj_id' : this.projectId, 'pb_id' : item }
-    this.projectService.rtm_by_pb(query).subscribe((rtm)=> { this.dataSource = rtm });
+    this.projectService.rtm_by_pb(query).subscribe((rtm)=> { 
+      this.dataSource = rtm; 
+      this.noRecord = rtm.length > 0 ? false:true; 
+     });
   }
 
   onSave():void {

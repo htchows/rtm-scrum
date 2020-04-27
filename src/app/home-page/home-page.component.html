@@ -1,19 +1,47 @@
-<div class="main-div">   
-    <div>
-        <h1>Generate<br /> Requirement<br /> Traceability<br /> Matrix<br /> for SCRUM<br /> in seconds.</h1>
-    </div> 
-    <!-- <mat-card>
-        
-    </mat-card>   -->
-    <div>
-        <mat-list>
-            <mat-list-item>
+<div class="body">
+    <div class="main-div">   
+        <div class="block">
+            <!-- <h1>Generate<br /> Requirement<br /> Traceability<br /> Matrix<br /> for SCRUM<br /> in seconds.</h1> -->
+            <h1>Generate Requirement Traceability Matrix for SCRUM in seconds.</h1>
+            <!-- <h3>A tool that designed for SCRUM.</h3> -->
+            <section *ngIf="!isLogIn">
                 <button mat-raised-button color="primary" [routerLink]="['/login']">Login</button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>
+                OR
                 <button mat-raised-button color="primary" [routerLink]="['/register']">Register</button>
-            </mat-list-item>
-          </mat-list>
+            </section>
+        </div> 
+        
+    </div>
+    <div class="main-2">
+        <div class="img">
+            <img src="assets/img/scrum2.png" alt="SCRUM" style="width:100px;height:100px;">
+        </div>
+        <div class="text">
+            <h2>Designed for SCRUM Methodology</h2>
+            <p>An open source web application which can generate and update a Requirement Traceability Matrix automatically 
+                link relevant requirement and test case correctly from the Product Backlog and Sprint Backlog.</p>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="main-2">
+        <div class="text">
+            <h2>Store in Structure Template</h2>
+            <p>The application save backlogs in a structured format and 
+                makes RTM can find linkages between backlogs easily. </p>
+        </div>
+        <div class="img">
+            <img src="assets/img/link.png" alt="SCRUM" style="width:100px;height:100px;">
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="main-2">
+        <div class="img">
+            <img src="assets/img/speed.png" alt="SCRUM" style="width:100px;height:100px;">
+        </div>
+        <div class="text">
+            <h2>Simple & Fast</h2>
+            <p>No additional effort required. Make an RTM anytime. <br />
+                Enter keyword. Select filter. Click Generate. Done.</p>
+        </div>
     </div>
 </div>

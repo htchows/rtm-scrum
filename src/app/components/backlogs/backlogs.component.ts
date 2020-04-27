@@ -104,12 +104,12 @@ export class BacklogsComponent implements OnInit {
   //DIALOG
   openDialog(action,data): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '300px',
+      width: '500px',
       data: { backlog: this.isPB? 'pb' : 'sb', action:action, data:data, }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.openSnackBar("Updated","Dismiss");
+      this.openSnackBar(result ,"Dismiss");
       if(this.isPB){
         this.projectService.get_product_backlog(this.projectId)
           .subscribe((pb)=> { this.dataSource = new MatTableDataSource(pb)});

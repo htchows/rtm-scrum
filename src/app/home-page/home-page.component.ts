@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+  isLogIn = false;
+
+  constructor( public authService: AuthService,public router: Router) {
+
+  }
 
   ngOnInit(): void {
+    // location.reload();
+    if (this.authService.isLoggedIn) {
+      this.isLogIn = true;
+    }
   }
 
 }

@@ -3,6 +3,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: #673AB7; */
+    background-image: linear-gradient( #673AB7 , #9575CD ,#B39DDB);
+    color: ivory;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #673AB7;
+}
+
+.main-2{
+    margin: 50px 400px;
+    /* height: 50vh; */
+    display: inline-flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+
+    /* background-color: #673AB7; */
+    /* background-image: linear-gradient(to right,  #512DA8 , #9575CD ,#B39DDB); */
+    /* color: ivory; */
+}
+
+.text {
+    margin: 0px 0px 0px 30px;
 }
 
 mat-card {
@@ -22,4 +46,19 @@ mat-card {
 
 button {
     width: 100px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.block {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.body {
+    margin: -50px !important;
+    background-color: white !important;
 }

@@ -7,7 +7,7 @@
     <mat-card>
         <mat-card-header>
           <mat-card-title class="card-container-left">#{{project_detail.project_id}}</mat-card-title>
-          <mat-card-title class="card-container-right"><mat-icon class="edit"(click)="editProject('Update Project',project_detail)">edit</mat-icon>
+          <mat-card-title *ngIf="!isShared" class="card-container-right"><mat-icon class="edit"(click)="editProject('Update Project',project_detail)">edit</mat-icon>
           </mat-card-title>
         </mat-card-header>
         

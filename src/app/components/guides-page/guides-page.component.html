@@ -1,0 +1,85 @@
+<!-- <div class="sidenav">
+    <button mat-fab class="back" color="primary"  [routerLink]="['/']" title="Home Page">
+        <mat-icon class="icon">keyboard_backspace</mat-icon>
+        <mat-icon class="icon">home</mat-icon>
+    </button>
+</div> -->
+
+<div class="main">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Guideline of Creating RTM for Your Project</mat-panel-title>
+            <!-- <mat-panel-description>Type your name and age</mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <div class="content">
+            <p>This is a guideline for using the main features of the tool.
+              You are only able to perform features after login as a member.</p>
+            <p>Not a member? Create yout account now. <u [routerLink]="['/register']">Register</u></p>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Project</mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="content">
+            <p>How to Create Project?</p>
+            <p>Go to Dashboard page. Click the + button. Enter project detail. Click 'Create'.
+            All detail must be filled in except the Share To column. 
+            This column allows you to specify who have the right to view this project. 
+            Enter the registered email to the column. Use ',' to seperate the email even only one email.</p>
+            <!-- <img src="assets/img/create_prj.png" alt="create_project" style="width:200px;height:200px;"> -->
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Product Backlog</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="content">
+                <p>How to Create Product Backlog?</p>
+                <p>Select a project. Click on project's ID. Look at the Product Backlog Section. 
+                  If no any PB item exists, then click on the 'Create Product Backlog' button.
+                  Enter the PB detail, click create.
+                  If PB item exists, click on the 'View Product Backlog' button.
+                  Redirected to PB page. Click 'Add Item' button. Enter PB detail, click create.
+                </p>
+              </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Sprint Backlog</mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="content">
+            <p>How to Create Sprint Backlog?</p>
+            <p>Select a project. Click on project's ID. Look at the Sprint Backlog Section. 
+              If no any SB item exists, then click on the 'Create Sprint Backlog' button.
+              Enter the SB detail, click create. It will automactically generate a Sprint Backlog. 
+              The created SB item will include in it.
+              If SB item exists, Select a Sprint Backlog.
+              Redirected to sB page. Click 'Add Item' button. Enter SB detail, click create.
+              <i>Please notice that if SB ID changed, it will actomatically move the current item into
+                another Sprint Backlog.
+              </i>
+            </p>
+  
+            </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Requirement Traceability Matrix</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="content">
+            <p>Select a project > Scroll Down the Project Detail Page > Select Generate RTM</p>
+            <p>Keyword and Backlog type must be filled. The generated RTM can be export to CSV file.
+
+            </p>
+
+          </div>
+    </mat-expansion-panel>
+
+      </mat-accordion>
+</div>

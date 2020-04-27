@@ -95,7 +95,7 @@ export class ProjectDetailComponent implements OnInit {
   //DIALOG
   editProject(action,data): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '300px',
+      width: '500px',
       data: { action:action, data:data, }
     });
 

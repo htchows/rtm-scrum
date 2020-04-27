@@ -1,23 +1,22 @@
-<!-- <div class="mat-app-background basic-container">
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
-    </mat-menu>
-</div> -->
 <div class="example-container">
     <mat-toolbar color="primary"> 
         <mat-toolbar-row>
-        <span routerLink="/">SCRUM's RTM</span>
-        <span class="example-spacer"></span>
-        <!-- <button mat-button >Features</button> -->
-        <button mat-button >Guides</button>
-        <button mat-button routerLink="/dashboard" *ngIf="authService.isLoggedIn">Dashboard</button>
-        <button mat-button [matMenuTriggerFor]="menu" *ngIf="authService.isLoggedIn">User</button>
-        <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/user-profile" routerLinkActive="active">Profile</button>
-        <button mat-menu-item (click)="logout()">Logout</button>
-        </mat-menu>
+            <!-- <span routerLink="/">RTM for SCRUM</span> -->
+            
+            <button mat-button routerLink="/" class="home">
+                <mat-icon> table_chart</mat-icon><span>RTM for SCRUM</span>
+            </button>
+            <button mat-button routerLink="/about">About</button>
+            <button mat-button routerLink="/guides">Guides</button>
+
+            <span class="example-spacer"></span>
+            <!-- <button mat-button >Features</button> -->
+            <button mat-button routerLink="/dashboard" *ngIf="authService.isLoggedIn">Dashboard</button>
+            <button mat-button [matMenuTriggerFor]="menu" *ngIf="authService.isLoggedIn">User</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="/user-profile" routerLinkActive="active">Profile</button>
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
         </mat-toolbar-row>
     </mat-toolbar>
 </div>

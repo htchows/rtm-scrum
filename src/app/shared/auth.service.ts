@@ -50,6 +50,16 @@ export class AuthService {
       })
   }
 
+  login2(user): Observable<any> {
+    return this.http.post<any>(`api/login.php`, user);
+      // .subscribe((res: any) => {
+      //   //console.log(res);
+      //   localStorage.setItem('token', res[0].id);
+      //   this.currentUser = res;
+      //   this.router.navigate(['/dashboard']);
+      // })
+  }
+
   getToken() {
     return localStorage.getItem('token');
   }
@@ -61,11 +71,14 @@ export class AuthService {
   }
 
   doLogout() {
-    //console.log("logout");
     let removeToken = localStorage.removeItem('token');
+    if (this.router.url === "/home-page"){
+      location.reload();
+    }
     if (removeToken == null) {
       this.router.navigate(['/']);
     }
+    this.router.navigate(['/home-page']);
   }
 
   // User profile

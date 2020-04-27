@@ -9,7 +9,7 @@
       <mat-card-title class="card-container-left" *ngIf="isPB">Product Backlog</mat-card-title>
       <mat-card-title class="card-container-left" *ngIf="isSB">Sprint Backlog #{{sbId}}</mat-card-title>
       <mat-card-title class="card-container-right">
-        <button mat-raised-button *ngIf="isPB" color="primary" class="btn" type="submit" 
+        <button mat-raised-button *ngIf="isPB && !isShared" color="primary" class="btn" type="submit" 
           (click)="openDialog('Create PB Item', data)">Add item
         </button>
         <button mat-raised-button *ngIf="isSB" color="primary" class="btn" type="submit"

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { ProjectService } from './../../shared/project.service';
-import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-dialog-box',
@@ -38,6 +38,7 @@ export class DialogBoxComponent implements OnInit {
   item;
   prj_id;
   pb_list;
+  cancelled:string;
 
   constructor(
     public fb: FormBuilder,
@@ -50,10 +51,10 @@ export class DialogBoxComponent implements OnInit {
       this.isPrj_update = data.action === 'Update Project'? true:false;
       this.itemForm = this.fb.group({
         pid: [''],
-        prj_id: [''],
+        prj_id: ['', [Validators.required, Validators.maxLength(20)] ],
         user_id: [''],
-        title: [''],
-        desc: [''],
+        title: ['', [Validators.required, Validators.maxLength(50)] ],
+        desc: ['', [Validators.required, Validators.maxLength(200)] ],
         status: [''],
         share:[""],
         action:['']
@@ -102,25 +103,39 @@ export class DialogBoxComponent implements OnInit {
   }
 
   onNoClick(): void {
+    this.cancelled = "Cancelled";
     this.dialogRef.close();
+  }
+
+  hasError = (controlName: string, errorName: string) =>{
+    return this.itemForm.controls[controlName].hasError(errorName);
   }
 
   //PROJECT
   prj_create():void {
     this.itemForm.controls['user_id'].setValue(this.data.data);
-    var email = this.itemForm.value.share.split(',');
-    var param = {prj_id:this.itemForm.value.pid, email:email}
-
-    this.projectService.add_project(this.itemForm.value).subscribe(() => { 
-      this.projectService.share_get_id(param).subscribe((r) => { 
-        param =  {prj_id:this.itemForm.value.pid, email:r}
-        this.projectService.share_clear(param.prj_id).subscribe(() => { 
-          this.projectService.share_add(param).subscribe(() => { 
-            this.dialogRef.close(); 
+    if(this.itemForm.valid){
+      if(this.itemForm.value.share.length > 0){
+        var email = this.itemForm.value.share.split(',');
+        var param = {prj_id:this.itemForm.value.pid, email:email}
+  
+        this.projectService.add_project(this.itemForm.value).subscribe(() => { 
+          this.projectService.share_get_id(param).subscribe((r) => { 
+            param =  {prj_id:this.itemForm.value.pid, email:r}
+            this.projectService.share_clear(param.prj_id).subscribe(() => { 
+              this.projectService.share_add(param).subscribe(() => { 
+                this.dialogRef.close(); 
+              });
+            });
           });
         });
-      });
-    });
+      }else{
+        this.projectService.add_project(this.itemForm.value).subscribe(() => { 
+          this.dialogRef.close(); 
+        });
+      }
+    }
+ 
   }
 
   prj_update():void {

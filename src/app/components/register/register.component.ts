@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from './../../shared/auth.service';
 import { Router } from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +26,11 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.authService.isLoggedIn) {
+      this.router.navigate(['/dashboard']);
+    }
+   }
 
   registerUser() {
     this.authService.check_email(this.signupForm.value.email).subscribe((res) => {

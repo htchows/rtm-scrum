@@ -66,12 +66,12 @@ export class UserDashboardComponent implements OnInit {
   //DIALOG
   openDialog(action,data): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '300px',
+      width: '500px',
       data: { action:action, data:data, }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.openSnackBar( result  + " Success !","Dismiss");
+      this.openSnackBar( result  ,"Dismiss");
       this.projectService
         .get_project_own(this.currentId)
         .subscribe(prj => {

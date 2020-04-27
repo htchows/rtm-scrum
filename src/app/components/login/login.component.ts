@@ -24,7 +24,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    if (this.authService.isLoggedIn) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   invalid=false;
 
@@ -37,6 +41,31 @@ export class LoginComponent implements OnInit {
       }else{
         this.invalid = true;
       }
+    }
+    
+  }
+
+  loginUser2() {
+    if(this.signinForm.valid){
+      this.authService.login2(this.signinForm.value).subscribe(r => {
+        if(r.length > 0){
+          this.invalid = false;
+          localStorage.setItem('token', r[0].id);
+          this.authService.currentUser = r;
+          this.openSnackBar();
+          this.router.navigate(['/dashboard']);
+        }else{
+          this.invalid = true;
+        }
+        // console.log(r)
+        // // this.invalid = false;
+        // if(this.authService.isLoggedIn){
+        //   this.invalid = false;
+        //   this.openSnackBar();
+        // }else{
+        //   this.invalid = true;
+        // }
+      });
     }
     
   }

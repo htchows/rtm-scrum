@@ -1,16 +1,35 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-<div class="box">
-    <app-nav-menu></app-nav-menu>
-    <!-- <div class="sidenav">
-        <app-side-bar></app-side-bar>
-    </div> -->
+<app-nav-menu></app-nav-menu>
+<!-- <mat-sidenav-container class="example-container">
+    <mat-sidenav-content>
+        <div class="main">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<div class="box"> 
     <div class="back">
         <div class="main">
             <router-outlet></router-outlet>
         </div>
     </div>
+    <mat-toolbar color="primary"> 
+        <mat-toolbar-row>
+            <div class="title-center">
+                <span>Version 1.0.3</span>
+                <mat-divider [vertical]="true"></mat-divider>
+                <span>GitHub: https://github.com/htchows/rtm-scrum</span>
+            </div> 
+        </mat-toolbar-row>
+    </mat-toolbar>
 </div>
+
+
+<!-- <div class="sidenav">
+        <app-side-bar></app-side-bar>
+    </div> -->
 <!-- <mat-card fxFlex="100px" fxFlex.xs="100%">
     <mat-card-title>Create a new owner</mat-card-title>
     <mat-card-content>

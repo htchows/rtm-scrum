@@ -10,4 +10,11 @@ body {
 
 .mat-card-header-text{
     width: 100% !important;
-  }
+}
+
+.title-center {
+    font-size: small;
+    flex: 1 1 auto;
+    text-align: center;
+}
+

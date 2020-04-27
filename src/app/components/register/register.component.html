@@ -1,30 +1,41 @@
-<form class="example-form" [formGroup]="signupForm" (ngSubmit)="registerUser()">
-    <div class="form">
-        <mat-form-field class="example-full-width">
-            <mat-label>Username</mat-label>
-            <input matInput placeholder=" " value=" " formControlName="username" required>
-            <mat-hint align="end">Not more then 60 characters long.</mat-hint>
-            <mat-error *ngIf="hasError('username', 'required')">Usename is required</mat-error>
-            <mat-error *ngIf="hasError('username', 'maxlength')">You have more than 20 characters</mat-error>
-        </mat-form-field>
-    
-        <mat-form-field class="example-full-width">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder=" " value=" " type="email" formControlName="email" required>
-            <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
-            <mat-error *ngIf="hasError('email', 'email')">Not an email</mat-error>
-        </mat-form-field>
-        
-        <mat-form-field class="example-full-width">
-            <mat-label>Password</mat-label>
-            <input matInput placeholder=" " value=" " type="password" formControlName="password" required>
-            <mat-hint align="end">Not more then 10 characters long.</mat-hint>
-            <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
-            <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>
-        </mat-form-field>
+<div class="content">
+    <div class="sidenav">
+        <button mat-fab class="back" color="primary"  [routerLink]="['/']" title="Home Page">
+            <mat-icon class="icon">keyboard_backspace</mat-icon>
+        </button>
     </div>
-    <button mat-raised-button [routerLink]="['/home-page']">Cancel</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
-    <br />
-    <mat-error *ngIf="email_exists">This email is being used</mat-error>
-</form>
+    <div class="main">
+        <h2>Register</h2>
+        <form class="example-form" [formGroup]="signupForm" (ngSubmit)="registerUser()">
+            <div class="form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder=" " value=" " formControlName="username" required>
+                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('username', 'required')">Usename is required</mat-error>
+                    <mat-error *ngIf="hasError('username', 'maxlength')">You have more than 20 characters</mat-error>
+                </mat-form-field>
+            
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder=" " value=" " type="email" formControlName="email" required>
+                    <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                    <mat-error *ngIf="hasError('email', 'email')">Not an email</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder=" " value=" " type="password" formControlName="password" required>
+                    <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+                    <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>
+                </mat-form-field>
+            </div>
+            <!-- <button mat-raised-button [routerLink]="['/home-page']">Cancel</button> -->
+            <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Register</button>
+            <br />
+            <mat-error *ngIf="email_exists">This email is being used</mat-error>
+        </form>
+        <p>Has an account? <u [routerLink]="['/login']">Login</u></p>
+    </div>    
+</div>

@@ -14,7 +14,7 @@
 		$sql = "SELECT *
 				FROM product_backlog 
 				WHERE project_id = '$prj_id'
-				AND pb_desc LIKE '%$keyword%'";
+				AND (pb_desc LIKE '%$keyword%' OR pb_id LIKE '%$keyword%')";
 		
 		if(strlen($priority) > 0 && strlen($status)>0){
 			$sql .= " AND pb_priority = '$priority'

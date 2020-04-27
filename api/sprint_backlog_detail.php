@@ -9,7 +9,7 @@
 		$sb_id = mysqli_real_escape_string($con, trim($request->sb_id));
 		
 		$sql='';
-		$sql = "SELECT pb.id AS pbid, pb.pb_id, sb.project_id, sb.id AS sbid, sb.sb_id, sb.sb_item_id, sb.sb_desc, sb.sb_priority,sb.sb_priority, sb.sb_status 
+		$sql = "SELECT pb.id AS pbid, pb.pb_id, pb.pb_desc, sb.project_id, sb.id AS sbid, sb.sb_id, sb.sb_item_id, sb.sb_desc, sb.sb_priority,sb.sb_priority, sb.sb_status 
 				FROM `sprint_backlog` AS sb
 				INNER JOIN product_backlog AS pb
 				ON sb.pb_id = pb.id
@@ -27,6 +27,7 @@
 				$list[$i]['pbid'] = $row['pbid'];
 				$list[$i]['prj_id'] = $row['project_id'];
 				$list[$i]['pb_id'] = $row['pb_id'];
+				$list[$i]['pb_desc'] = $row['pb_desc'];
 				$list[$i]['sb_id'] = $row['sb_id'];
 				$list[$i]['sb_item_id'] = $row['sb_item_id'];
 				$list[$i]['desc'] = $row['sb_desc'];

@@ -9,13 +9,18 @@ import { ProjectDetailComponent } from './components/project-detail/project-deta
 //import { ProductBacklogComponent } from './components/product-backlog/product-backlog.component';
 import { BacklogsComponent } from './components/backlogs/backlogs.component';
 import { RtmComponent } from './components/rtm/rtm.component';
-
+import { GuidesPageComponent } from './components/guides-page/guides-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from "./shared/auth.guard";
 
 const routes: Routes = [
+  { path: 'home-page', component: HomePageComponent },
   { path: '', redirectTo: '/home-page', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'guides', component: GuidesPageComponent },
+  
   //{ path: 'dashboard/:id', component: UserDashboardComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
@@ -31,6 +36,8 @@ const routes: Routes = [
   
   { path: 'rtm', component: RtmComponent, canActivate: [AuthGuard] },
   { path: 'rtm/:id', component: RtmComponent, canActivate: [AuthGuard] },
+
+  { path: '**', component: PageNotFoundComponent }, 
 ];
 
 @NgModule({

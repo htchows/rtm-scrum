@@ -63,6 +63,10 @@ import { BacklogsComponent } from './components/backlogs/backlogs.component';
 import { RtmComponent } from './components/rtm/rtm.component';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { GuidesPageComponent } from './components/guides-page/guides-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FootBarComponent } from './foot-bar/foot-bar.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 
 const appRoutes: Routes = [
@@ -84,7 +88,11 @@ const appRoutes: Routes = [
     BacklogsComponent,
     RtmComponent,
     DialogBoxComponent,
-    SideBarComponent
+    SideBarComponent,
+    GuidesPageComponent,
+    PageNotFoundComponent,
+    FootBarComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,
