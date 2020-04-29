@@ -52,48 +52,6 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <!-- <mat-card class="RTM" *ngIf="isRTM">
-    <mat-card-header>
-      <mat-card-title>Generate RTM</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <form class="example-form" [formGroup]="searchForm" (ngSubmit)="generate()">
-            <mat-form-field appearance="fill" class="field">
-                <mat-label>Keyword</mat-label>
-                <input matInput formControlName="keyword" required>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill" class="field">
-                <mat-label>Backlog</mat-label>
-                <mat-select formControlName="backlog" required>
-                    <mat-option value="Product Backlog">Product Backlog</mat-option>
-                    <mat-option value="Sprint Backlog">Sprint Backlog</mat-option>
-                </mat-select>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill" class="field">
-                <mat-label>Priority</mat-label>
-                <mat-select formControlName="priority">
-                    <mat-option value="">--</mat-option>
-                    <mat-option value="High">High</mat-option>
-                    <mat-option value="Medium">Medium</mat-option>
-                    <mat-option value="Low">Low</mat-option>
-                </mat-select>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill" class="field">
-                <mat-label>Status</mat-label>
-                <mat-select formControlName="status">
-                    <mat-option value="">--</mat-option>
-                    <mat-option value="Open">Open</mat-option>
-                    <mat-option value="Close">Close</mat-option>
-                    <mat-option value="Pending">Pending</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button mat-raised-button color="primary" type="submit">Generate</button>
-        </form>
-    </mat-card-content>
-  </mat-card> -->
   <mat-card class="bl">
     <mat-card-header>
       <mat-card-title class="card-container-left" *ngIf="isPB">Product Backlog</mat-card-title>
