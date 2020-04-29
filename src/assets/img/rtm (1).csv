@@ -1,0 +1,4 @@
+﻿S.No,project_id,pb_id,pb_desc,pb_priority,pb_status,sb_id,sb_item_id,sb_desc,sb_desc,sb_priority,sb_status
+1,1,PB001,User shall be able to create a personal account.,High,Open,UT-SB-01,TC-REG-001,Verify the register function - valid data,Verify the register function - valid data,Medium,Close
+2,1,PB001,User shall be able to create a personal account.,High,Open,UT-SB-01,TC-REG-002,Verify the register function - invalid email,Verify the register function - invalid email,Medium,Close
+3,1,PB001,User shall be able to create a personal account.,High,Open,UT-SB-01,TC-REG-003,Verify the register function - Enter registered email,Verify the register function - Enter registered email,Medium,Pending

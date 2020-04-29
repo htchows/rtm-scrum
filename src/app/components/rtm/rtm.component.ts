@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './../../shared/auth.service';
 import { ProjectService } from './../../shared/project.service';
-import { Project } from './../../shared/project';
+import { RTM } from './../../shared/rtm';
 import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ExportService } from './../../shared/export.service';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-rtm',
@@ -23,13 +25,17 @@ export class RtmComponent implements OnInit {
   projectId;
   backlog;
   pb_id;
+  dataSource2;
 
   displayedColumns: string[] = ['pb_id','pb_desc','pb_priority','pb_status','sb_id','sb_item_id','sb_desc','sb_priority','sb_status'];
-  dataSource;
+  //dataSource;
   noRecord = true;
   input;
   priority; status;
+  key; bl;
   private state$: Observable<any>;
+  dataSource: MatTableDataSource<RTM>;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor( public fb: FormBuilder, public authService: AuthService, private _snackBar: MatSnackBar,
     private exportService: ExportService,
@@ -50,25 +56,53 @@ export class RtmComponent implements OnInit {
     if(!this.input.hasOwnProperty('priority')){
       this.priority = "";
       this.status = ""
+      this.key = "";
+      this.bl = "";
+      // console.log(this.input)
     }else{
       // console.log(this.input)
+      this.key = this.input.keyword;
+      this.bl = this.input.backlog;
       this.priority = this.input.priority;
       this.status = this.input.status;
+      this.generate2();
     }
   }
 
   ngOnInit(): void { 
+
   }
 
   rtm;
   query;
   generate(){
     this.query = this.searchForm.value;
+
     if(this.query.backlog === 'Product Backlog'){
       this.projectService.rtm_get_pd_id(this.query).subscribe((pb_id)=> { this.generte_rtm_pb(pb_id) });
     }else{
       this.projectService.rtm_by_sb(this.query).subscribe((rtm)=> { 
-        this.dataSource = rtm;
+        this.dataSource = new MatTableDataSource<RTM>(rtm);
+        this.dataSource2 = rtm;
+        this.dataSource.sort = this.sort;
+        this.noRecord = rtm.length > 0 ? false:true; 
+      });
+    }
+  }
+
+  generate2(){
+    this.query = {keyword:this.input.keyword, backlog:this.input.backlog,
+                  priority:this.input.priority, status:this.input.status, prj_id:this.projectId }
+
+    if(this.query.backlog === 'Product Backlog'){
+      this.projectService.rtm_get_pd_id(this.query).subscribe((pb_id)=> { this.generte_rtm_pb(pb_id) });
+    }else{
+      this.projectService.rtm_by_sb(this.query).subscribe((rtm)=> { 
+        // this.dataSource = rtm;
+        this.dataSource = new MatTableDataSource<RTM>(rtm);
+        this.dataSource2 = rtm;
+
+        this.dataSource.sort = this.sort;
         this.noRecord = rtm.length > 0 ? false:true; 
       });
     }
@@ -77,7 +111,11 @@ export class RtmComponent implements OnInit {
   generte_rtm_pb(item){
     const query = {'prj_id' : this.projectId, 'pb_id' : item }
     this.projectService.rtm_by_pb(query).subscribe((rtm)=> { 
-      this.dataSource = rtm; 
+      // this.dataSource = rtm; 
+      this.dataSource = new MatTableDataSource<RTM>(rtm);
+      this.dataSource2 = rtm;
+
+        this.dataSource.sort = this.sort;
       this.noRecord = rtm.length > 0 ? false:true; 
      });
   }
@@ -93,6 +131,6 @@ export class RtmComponent implements OnInit {
   }
 
   download(){
-    this.exportService.downloadFile(this.dataSource,'rtm','rtm');
+    this.exportService.downloadFile(this.dataSource2,'rtm','rtm');
   }
 }

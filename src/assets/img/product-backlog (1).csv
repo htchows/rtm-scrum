@@ -1,0 +1,11 @@
+﻿S.No,prj_id,pb_id,desc,priority,status
+1,1,PB001,User shall be able to create a personal account.,High,Open
+2,1,PB002,User shall be able to login to own account.,Medium,Open
+3,1,PB003,User shall be able to logout from own account.,Low,Close
+4,1,PB004,Project Module - Create/Update/Delete,Low,Pending
+5,1,PB005,Product Backlog Module - CRUD,Medium,Close
+6,1,PB006,Sprint Backlog Module - CRUD,High,Open
+7,1,PB007,RTM Module - CRUD,High,Close
+8,1,PB008,Export Module -CSV,Low,Close
+9,1,PB009,Login Deploy Preparation,Medium,Pending
+10,1,PB010,Change Request Confirmation,High,Pending

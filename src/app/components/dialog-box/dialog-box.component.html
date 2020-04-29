@@ -5,9 +5,9 @@
 
     <div mat-dialog-content [formGroup]="itemForm" class="project">
         <mat-form-field class="example-full-width">
-            <mat-label>Project ID</mat-label>
+            <mat-label>Project Code</mat-label>
             <input matInput [(ngModel)]="data.data.project_id" type="text" formControlName="prj_id" required>
-            <mat-hint align="end">Not more then 20 characters long.</mat-hint>
+            <mat-hint align="end">Maximum 20 characters long.</mat-hint>
             <mat-error *ngIf="hasError('prj_id', 'required')">This field is required</mat-error>
             <mat-error *ngIf="hasError('prj_id', 'maxlength')">You have more than 20 characters</mat-error>
         </mat-form-field>
@@ -15,7 +15,7 @@
         <mat-form-field class="example-full-width">
             <mat-label>Tittle</mat-label>
             <input matInput [(ngModel)]="data.data.title" type="text" formControlName="title" required>
-            <mat-hint align="end">Not more then 50 characters long.</mat-hint>
+            <mat-hint align="end">Maximum 50 characters long.</mat-hint>
             <mat-error *ngIf="hasError('title', 'required')">This field is required</mat-error>
             <mat-error *ngIf="hasError('title', 'maxlength')">You have more than 50 characters</mat-error>
         </mat-form-field>
@@ -24,7 +24,7 @@
             <mat-label>Description</mat-label>
             <textarea  [(ngModel)]="data.data.description" formControlName="desc"
                 matInput placeholder=" " required></textarea>
-            <mat-hint align="end">Not more then 200 characters long.</mat-hint>
+            <mat-hint align="end">Maximum 200 characters long.</mat-hint>
             <mat-error *ngIf="hasError('desc', 'required')">This field is required</mat-error>
             <mat-error *ngIf="hasError('desc', 'maxlength')">You have more than 200 characters</mat-error>
         </mat-form-field>
@@ -38,7 +38,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" *ngIf="!isPrj_create">
             <mat-label>Share To</mat-label>
             <textarea  [(ngModel)]="data.data.share" formControlName="share"
             matInput placeholder="Place ',' at the end of each email, please do not include any unnecessary space"></textarea>
@@ -77,54 +77,68 @@
     <div mat-dialog-content [formGroup]="itemForm" class="project">
         <mat-form-field *ngIf="isPB" class="example-full-width">
             <mat-label>Product Backlog ID</mat-label>
-            <input matInput [(ngModel)]="data.data.pb_id" type="text" formControlName="pb_id">
-            <mat-hint align="end" *ngIf="pb_id_exists">Product Backlog ID Exists</mat-hint>
-            <!-- <mat-error *ngIf="hasError('pb_id', 'required')">Usename is required</mat-error> -->
-            <!-- <mat-error *ngIf="pb_id_exists">Product Backlog ID Exists</mat-error> -->
+            <input matInput [(ngModel)]="data.data.pb_id" type="text" formControlName="pb_id" required maxlength="10">
+            <mat-hint align="end" *ngIf="pb_id_exists">Product Backlog ID Exists; </mat-hint>
+            <mat-hint align="end">Maximum 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('pb_id', 'required')">This field is required</mat-error>
         </mat-form-field>
         
         <mat-form-field *ngIf="isSB" class="example-full-width">
             <mat-label>Product Backlog ID</mat-label>
-            <mat-select [(ngModel)]="data.data.pbid" formControlName="pb_id">
+            <mat-select [(ngModel)]="data.data.pbid" formControlName="pb_id" required>
                 <mat-option *ngFor="let pb of pb_list" 
                             [value]="pb.pbid" >{{ pb.pb_id }} - {{ pb.desc }}</mat-option>
             </mat-select>
+            <mat-error *ngIf="hasError('pb_id', 'required')">This field is required</mat-error>
         </mat-form-field>
 
         <mat-form-field *ngIf="isSB" class="example-full-width">
             <mat-label>Sprint Backlog ID</mat-label >
-            <input matInput [(ngModel)]="data.data.sb_id" type="text" formControlName="sb_id">
+            <input matInput [(ngModel)]="data.data.sb_id" type="text" formControlName="sb_id" required required maxlength="10">
+            <mat-hint align="end">Maximum 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('sb_id', 'required')">This field is required</mat-error>
+            <mat-error *ngIf="hasError('sb_id', 'maxlength')">You have more than 10 characters</mat-error>
         </mat-form-field>
         
         <mat-form-field *ngIf="isSB" class="example-full-width">
             <mat-label>Sprint Item ID</mat-label>
-            <input matInput [(ngModel)]="data.data.sb_item_id" type="text" formControlName="sb_item_id">
+            <input matInput [(ngModel)]="data.data.sb_item_id" type="text" formControlName="sb_item_id" required maxlength="10">
+            <mat-hint align="end" *ngIf="sb_id_exists">Item ID Exists; </mat-hint>
+            <mat-hint align="end">Maximum 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('sb_item_id', 'required')">This field is required</mat-error>
+            <mat-error *ngIf="hasError('sb_item_id', 'maxlength')">You have more than 10 characters</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
             <mat-label>Description</mat-label>
-            <input matInput [(ngModel)]="data.data.desc" type="text" formControlName="desc">
+            <!-- <input matInput [(ngModel)]="data.data.desc" type="text" formControlName="desc" required> -->
+            <textarea  [(ngModel)]="data.data.desc" formControlName="desc" matInput required maxlength="200"></textarea>
+            <mat-hint align="end">Maximum 200 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('desc', 'required')">This field is required</mat-error>
+            <mat-error *ngIf="hasError('desc', 'maxlength')">You have more than 200 characters</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
             <mat-label>Priority</mat-label>
-            <mat-select [(ngModel)]="data.data.priority" formControlName="priority">
+            <mat-select [(ngModel)]="data.data.priority" formControlName="priority" required>
                 <mat-option value="High">High</mat-option>
                 <mat-option value="Medium">Medium</mat-option>
                 <mat-option value="Low">Low</mat-option>
             </mat-select>
+            <mat-error *ngIf="hasError('priority', 'required')">This field is required</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
             <mat-label>Status</mat-label>
-            <mat-select [(ngModel)]="data.data.status" formControlName="status">
+            <mat-select [(ngModel)]="data.data.status" formControlName="status" required>
                 <mat-option value="Open">Open</mat-option>
                 <mat-option value="Close">Close</mat-option>
                 <mat-option value="Pending">Pending</mat-option>
             </mat-select>
+            <mat-error *ngIf="hasError('status', 'required')">This field is required</mat-error>
         </mat-form-field>
     </div>
-    <small> *This action is not reversible.</small>
+    <!-- <small> *This action is not reversible.</small> -->
     <br />
     <div mat-dialog-actions>
         <button mat-button mat-dialog-close="Cancelled">Cancel</button>

@@ -1,5 +1,5 @@
 <div class="sidenav">
-    <button mat-fab class="back" color="primary"  routerLink="/dashboard">
+    <button mat-fab class="back" color="primary"  routerLink="/dashboard" title="Dashboard">
         <mat-icon>keyboard_backspace</mat-icon>
     </button>
 </div>
@@ -34,7 +34,7 @@
         <mat-card-header>
           <mat-card-title class="card-container-left">Product Backlog</mat-card-title>
           <mat-card-title class="card-container-right">
-            <button *ngIf='!has_product_backlog' mat-raised-button color="primary" class="main-button"
+            <button *ngIf='!has_product_backlog && !isShared' mat-raised-button color="primary" class="main-button"
             (click)="openDialog('Create PB Item', 'pb',project_detail.pid)">Create Product Backlog</button>  
             <button *ngIf='has_product_backlog' mat-raised-button color="primary" (click)="openPB()">
                     View Product Backlog
@@ -119,7 +119,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
             </table>
-            <p><i *ngIf="!has_rtm">No records found.</i></p>         
+            <p class="card-mar"><i *ngIf="!has_rtm">No records found.</i></p>         
         </mat-card-content>
     </mat-card>
     

@@ -63,3 +63,11 @@ table {
 .main-button {
     cursor: pointer; 
 }
+
+mat-list-item {
+    cursor: pointer;
+}
+
+.card-mar {
+    margin-left: 50px;
+}

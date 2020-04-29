@@ -4,6 +4,7 @@ import { AuthService } from './../../shared/auth.service';
 import { ProjectService } from './../../shared/project.service';
 import { Backlog } from './../../shared/backlog';
 import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { Router } from '@angular/router';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -34,9 +35,9 @@ export class BacklogsComponent implements OnInit {
   displayedColumns: string[];
   // columnsPB: string[] = ['No', 'PB ID', 'Description', 'Priority', 'Status'];
   // columnsSB: string[] = ['No', 'PB ID', 'SB ID', 'SB Item ID', 'Description', 'Priority', 'Status'];
-
+  isRTM = false;
   itemForm: FormGroup;
-
+  searchForm: FormGroup;
   dataSource: MatTableDataSource<Backlog>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -46,7 +47,7 @@ export class BacklogsComponent implements OnInit {
     public authService: AuthService, 
     private projectService: ProjectService, 
     private actRoute: ActivatedRoute,
-    public dialog: MatDialog,
+    public dialog: MatDialog, private router: Router,
     private _snackBar: MatSnackBar) 
   {
     this.projectId = this.projectService.getToken();
@@ -73,14 +74,34 @@ export class BacklogsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(pb);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.displayedColumns= ['no', 'pb_id', 'sb_id', 'sb_item_id','desc', 'priority', 'status','edit'];
+        this.displayedColumns= ['no', 'pb_id',  'sb_item_id','desc', 'priority', 'status','edit'];
       });
     }
+    this.searchForm = this.fb.group({
+      prj_id: [this.projectId],
+      keyword: [''],
+      backlog: [''],
+      priority: [''],
+      status: ['']
+    })
 
   }
 
   ngOnInit(): void { 
 
+  }
+
+  openRTM():void {
+    this.isRTM = !this.isRTM;
+  }
+
+  generate():void {
+    this.router.navigate(['/rtm', { 
+      keyword:this.searchForm.value.keyword,
+      backlog:this.searchForm.value.backlog,
+      priority:this.searchForm.value.priority,
+      status:this.searchForm.value.status
+    }]);
   }
 
   editMode():void {

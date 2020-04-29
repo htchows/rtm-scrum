@@ -1,0 +1,21 @@
+﻿S.No,project_id,pb_id,pb_desc,pb_priority,pb_status,sb_id,sb_item_id,sb_desc,sb_desc,sb_priority,sb_status
+1,1,PB001,User shall be able to create a personal account.,High,Open,UT-SB-01,TC-REG-001,Verify the register function - valid data,Verify the register function - valid data,Medium,Close
+2,1,PB001,User shall be able to create a personal account.,High,Open,UT-SB-01,TC-REG-002,Verify the register function - invalid email,Verify the register function - invalid email,Medium,Close
+3,1,PB002,User shall be able to login to own account.,Medium,Open,UT-SB-01,TC-LOG-001,Verify the login function
+Enter valid email, password,Verify the login function
+Enter valid email, password,Medium,Close
+4,1,PB004,Project Module - Create/Update/Delete,Low,Pending,UT-SB-01,TC-PRO-001,Verify the create project function
+Enter valid project detail,Verify the create project function
+Enter valid project detail,High,Close
+5,1,PB004,Project Module - Create/Update/Delete,Low,Pending,UT-SB-01,TC-PRO-003,Verify the update project function
+Enter valid project detail,Verify the update project function
+Enter valid project detail,Medium,Close
+6,1,PB005,Product Backlog Module - CRUD,Medium,Close,UT-SB-01,TC-BPB-003,Verify the update Product Backlog item function
+Enter valid backlog detail,Verify the update Product Backlog item function
+Enter valid backlog detail,High,Pending
+7,1,PB005,Product Backlog Module - CRUD,Medium,Close,UT-SB-01,TC-BPB-001,Verify the create Product Backlog item function
+Enter valid backlog detail,Verify the create Product Backlog item function
+Enter valid backlog detail,High,Close
+8,1,PB006,Sprint Backlog Module - CRUD,High,Open,UT-SB-01,TC-BSB-001,Verify the create Sprint Backlog item function
+Enter valid backlog detail,Verify the create Sprint Backlog item function
+Enter valid backlog detail,High,Pending

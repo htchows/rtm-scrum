@@ -1,0 +1,19 @@
+﻿S.No,prj_id,pb_id,sb_id,sb_item_id,desc,priority,status
+1,1,PB001,UT-SB-01,TC-REG-001,Verify the register function - valid data,Medium,Close
+2,1,PB001,UT-SB-01,TC-REG-002,Verify the register function - invalid email,Medium,Close
+3,1,PB001,UT-SB-01,TC-REG-003,Verify the register function - Enter registered email,Medium,Pending
+4,1,PB002,UT-SB-01,TC-LOG-001,Verify the login function
+Enter valid email, password,Medium,Close
+5,1,PB002,UT-SB-01,TC-LOG-002,Verify the login function Enter wrong password,Medium,Close
+6,1,PB004,UT-SB-01,TC-PRO-001,Verify the create project function
+Enter valid project detail,High,Close
+7,1,PB004,UT-SB-01,TC-PRO-003,Verify the update project function
+Enter valid project detail,Medium,Close
+8,1,PB004,UT-SB-01,TC-PRO-005,Verify the delete project function,Low,Close
+9,1,PB005,UT-SB-01,TC-BPB-001,Verify the create Product Backlog item function
+Enter valid backlog detail,High,Close
+10,1,PB005,UT-SB-01,TC-BPB-003,Verify the update Product Backlog item function
+Enter valid backlog detail,High,Pending
+11,1,PB006,UT-SB-01,TC-BSB-001,Verify the create Sprint Backlog item function
+Enter valid backlog detail,High,Pending
+12,1,PB008,UT-SB-01,TC-EXP-001,Verify exported doc,High,Open

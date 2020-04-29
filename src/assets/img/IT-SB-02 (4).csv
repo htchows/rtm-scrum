@@ -1,0 +1,2 @@
+﻿S.No,prj_id,pb_id,sb_id,sb_item_id,desc,priority,status
+1,1,PB001,UT-SB-02,TC-REG-001,Verify the register function - valid data,Medium,Close

@@ -100,7 +100,7 @@ export class ProjectDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.openSnackBar( "Update Success !","Dismiss");
+      this.openSnackBar( result,"Dismiss");
       this.projectService.get_project_detail(this.projectId).subscribe(prj => { 
         this.project_detail = prj[0];
       });
@@ -109,12 +109,12 @@ export class ProjectDetailComponent implements OnInit {
 
   openDialog(action,backlog,data): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '300px',
+      width: '500px',
       data: { action:action, backlog:backlog, data:{prj_id:data}, }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.openSnackBar( result  + " Success !","Dismiss");
+      this.openSnackBar( result ,"Dismiss");
       this.projectService.get_product_backlog(this.projectId)
         .subscribe((pb)=> { 
           if(pb.length > 0) this.has_product_backlog = true;

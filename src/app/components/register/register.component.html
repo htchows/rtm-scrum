@@ -11,7 +11,7 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>Username</mat-label>
                     <input matInput placeholder=" " value=" " formControlName="username" required>
-                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                    <mat-hint align="end">Maximum 20 characters long.</mat-hint>
                     <mat-error *ngIf="hasError('username', 'required')">Usename is required</mat-error>
                     <mat-error *ngIf="hasError('username', 'maxlength')">You have more than 20 characters</mat-error>
                 </mat-form-field>
@@ -26,9 +26,10 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>Password</mat-label>
                     <input matInput placeholder=" " value=" " type="password" formControlName="password" required>
-                    <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+                    <mat-hint align="end">6~10 characters.</mat-hint>
                     <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
                     <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>
+                    <mat-error *ngIf="hasError('password', 'minlength')">You have less than 6 characters</mat-error>
                 </mat-form-field>
             </div>
             <!-- <button mat-raised-button [routerLink]="['/home-page']">Cancel</button> -->

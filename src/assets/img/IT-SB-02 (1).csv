@@ -1,0 +1,5 @@
+﻿S.No,prj_id,pb_id,sb_id,sb_item_id,desc,priority,status
+1,1,PB003,IT-SB-02,IT-02,Test link between User & Project module - Not able to access project dashboard page after login,High,Pending
+2,1,PB007,IT-SB-02,IT-16,Test the link between the Project and RTM module. - export,High,Open
+3,1,PB007,IT-SB-02,PT-RTM-01,Test RTM generate time,High,Open
+4,1,PB007,IT-SB-02,PT-RTM-02,Test accuracy of RTM,High,Pending

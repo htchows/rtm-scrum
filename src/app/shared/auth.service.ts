@@ -81,15 +81,20 @@ export class AuthService {
     this.router.navigate(['/home-page']);
   }
 
+  updateUser(param):Observable<any> {
+    return this.http.post<any>(`api/user_update.php`, param);
+  }
+  
   // User profile
   getUserProfile(id): Observable<any> {
-    let api = `api/user-profile/${id}`;
-    return this.http.get(api, { headers: this.headers }).pipe(
-      map((res: Response) => {
-        return res || {}
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.post<any>(`api/user_profile.php`, id);
+    // let api = `api/user_profile/${id}`;
+    // return this.http.get(api, { headers: this.headers }).pipe(
+    //   map((res: Response) => {
+    //     return res || {}
+    //   }),
+    //   catchError(this.handleError)
+    // )
   }
 
   // Error 

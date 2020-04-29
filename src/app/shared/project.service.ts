@@ -132,6 +132,10 @@ export class ProjectService {
     return this.http.post<any>(`api/sprint_backlog_delete_item.php`, params);  
   }
 
+  check_sb_id (params) : Observable<any> {
+    return this.http.post<any>(`api/sprint_backlog_id.php`, params);  
+  }
+
 
   //RTM
   rtm_list(prj_id) : Observable<any[]>{
