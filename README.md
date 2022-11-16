@@ -1,11 +1,11 @@
-# Rtm For Scrum
+# RTM For SCRUM
 ## About the project
 SCRUM is a light-weight agile framework for software development. Requirement
 Traceability Matrix (RTM) is a matrix which shows the linkage between two
 requirements documents. For SCRUM, the developer can trace the relation between
 Product Backlog and Sprint Backlogs using RTM. Retrieving requirements and
 generating RTM manually is a complex and time-consuming process. This project
-aimed to develop a web app that can generate an RTM based on any keyword and
+aimed to develop a web application that can generate an RTM based on any keyword and
 can generate RTM within one minute. 
 
 ## Technologies
